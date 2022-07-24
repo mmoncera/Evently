@@ -5,8 +5,8 @@ function AppDrawer() {
   const { handleSignOut } = useContext(AppContext);
   return (
     <>
-      <button className="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-        <span className="navbar-toggler-icon"></span>
+      <button className="border-0 bg-transparent fs-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+        <i className="fa-solid fa-bars"></i>
       </button>
       <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div className="offcanvas-header">

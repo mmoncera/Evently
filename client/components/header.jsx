@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <header>
-      <nav className="navbar navbar-dark bg-primary">
+      <nav className="navbar navbar-dark lh-1 bg-primary">
         <div className="container">
           <a className="navbar-brand py-0 app-name" href="#">Evently</a>
           {user && <AppDrawer />}

@@ -17,7 +17,7 @@ function AppDrawer() {
           <div className="navbar-nav justify-content-end flex-grow-1 h4 font-rubik" data-bs-dismiss="offcanvas">
               <a className="nav-link mb-3 ps-3 text-dark" aria-current="page" href="#">Bookmarks</a>
               <a className="nav-link mb-3 ps-3 text-dark" href="#">Itineraries</a>
-              <a className="nav-link mb-3 ps-3 text-dark" href="#" onClick={handleSignOut}>Sign Out</a>
+              <a className="nav-link mb-3 ps-3 text-dark" href="#sign-in" onClick={handleSignOut}>Sign Out</a>
           </div>
         </div>
       </div>

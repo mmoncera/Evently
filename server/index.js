@@ -4,6 +4,8 @@ const express = require('express');
 const pg = require('pg');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+const yelp = require('yelp-fusion');
+const client = yelp.client(process.env.YELP_API_KEY);
 const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
 
@@ -57,8 +59,8 @@ app.post('/api/auth/sign-in', (req, res, next) => {
   const sql = `
     select "userId",
            "hashedPassword"
-      from "users"
-     where "username" = $1
+    from "users"
+    where "username" = $1
   `;
   const params = [username];
   db.query(sql, params)
@@ -80,6 +82,23 @@ app.post('/api/auth/sign-in', (req, res, next) => {
         });
     })
     .catch(err => next(err));
+});
+
+app.get('/api/search-yelp', (req, res, next) => {
+  const { term, location } = req.query;
+  if (!term || !location) {
+    throw new ClientError(400, 'event and location are required');
+  }
+  client.search({ term, location })
+    .then(response => {
+      res.status(200).json(response.jsonBody.businesses);
+    })
+    .catch(err => {
+      if (err.statusCode === 400) {
+        return res.json({ error: 'No results' });
+      }
+      next(err);
+    });
 });
 
 app.use(errorMiddleware);

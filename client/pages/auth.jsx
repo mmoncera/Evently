@@ -11,8 +11,8 @@ function Auth() {
   }
 
   return (
-    <div className=' row justify-content-center py-5'>
-      <div className='col-10 col-sm-8 col-md-6 col-lg-4'>
+    <div className="row justify-content-center py-5">
+      <div className="col-10 col-sm-8 col-md-6 col-lg-4">
         <AuthForm action={route.path} onSignIn={handleSignIn} />
       </div>
     </div>

@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 
 function AuthForm(props) {
   const [userInfo, setUserInfo] = useState({ username: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
   const { action, onSignIn } = props;
 
   function handleChange(event) {
     const { name, value } = event.target;
     setUserInfo({ ...userInfo, [name]: value });
+    if (errorMessage) {
+      setErrorMessage('');
+    }
   }
 
   function handleSubmit(event) {
@@ -19,14 +23,25 @@ function AuthForm(props) {
       body: JSON.stringify(userInfo)
     };
     fetch(`/api/auth/${action}`, req)
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          return setErrorMessage('Invalid username or password');
+        }
+        if (res.status === 409) {
+          return setErrorMessage('Username already exists');
+        }
+        return res.json();
+      })
       .then(result => {
+        if (!result) {
+          return;
+        }
         if (action === 'sign-up') {
           window.location.hash = '#sign-in';
         } else if (result.user && result.token) {
           onSignIn(result);
         }
-        setUserInfo({ username: '', password: '' });
+        handleResetState();
       })
       .catch(err => console.error(err));
   }
@@ -54,6 +69,11 @@ function AuthForm(props) {
       .catch(err => console.error(err));
   }
 
+  function handleResetState() {
+    setUserInfo({ username: '', password: '' });
+    setErrorMessage('');
+  }
+
   const formTitle = action === 'sign-up' ? 'Register' : 'Sign In';
   const alternateActionHref = action === 'sign-up' ? '#sign-in' : '#sign-up';
   const alternateActionStatement =
@@ -66,6 +86,7 @@ function AuthForm(props) {
   return (
     <>
       <h1 className="text-center mb-4 font-rubik">{formTitle}</h1>
+      {errorMessage && <p className="text-danger">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <input
@@ -100,7 +121,7 @@ function AuthForm(props) {
         </div>
         <p className="text-center mb-3">
           {alternateActionStatement}{' '}
-          <a href={alternateActionHref} className="text-decoration-none font-rubik">
+          <a href={alternateActionHref} className="text-decoration-none font-rubik" onClick={handleResetState}>
             {alternateActionLinkText}
           </a>
         </p>

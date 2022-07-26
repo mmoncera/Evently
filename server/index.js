@@ -48,7 +48,12 @@ app.post('/api/auth/sign-up', (req, res, next) => {
       const [user] = result.rows;
       res.status(201).json(user);
     })
-    .catch(err => next(err));
+    .catch(err => {
+      if (err.code === '23505') {
+        return res.status(409).json('duplicate username');
+      }
+      next(err);
+    });
 });
 
 app.post('/api/auth/sign-in', (req, res, next) => {

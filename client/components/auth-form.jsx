@@ -142,5 +142,3 @@ function AuthForm(props) {
 }
 
 export default AuthForm;
-
-// clean up

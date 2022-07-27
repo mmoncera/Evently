@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
-import Auth from './pages/auth';
 import Home from './pages/home';
+import Auth from './pages/auth';
+import Results from './pages/results';
 import Header from './components/header';
 import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
@@ -39,6 +40,9 @@ function App() {
     }
     if (path === 'sign-in' || path === 'sign-up') {
       return <Auth />;
+    }
+    if (path === 'results') {
+      return <Results />;
     }
   }
 

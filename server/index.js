@@ -50,7 +50,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     })
     .catch(err => {
       if (err.code === '23505') {
-        return res.status(409).json('duplicate username');
+        return res.status(409).json({ error: 'duplicate username' });
       }
       next(err);
     });
@@ -96,11 +96,11 @@ app.get('/api/search-yelp', (req, res, next) => {
   }
   client.search({ term, location })
     .then(response => {
-      res.status(200).json(response.jsonBody.businesses);
+      return res.status(200).json(response.jsonBody.businesses);
     })
     .catch(err => {
       if (err.statusCode === 400) {
-        return res.json({ error: 'No results' });
+        return res.json({ error: 'no results' });
       }
       next(err);
     });

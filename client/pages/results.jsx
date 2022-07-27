@@ -59,5 +59,3 @@ function Results() {
 }
 
 export default Results;
-
-// clean up

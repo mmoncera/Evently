@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import Card from '../components/card';
 import { AppContext, parseRoute } from '../lib';
 
 function Results() {
-  /* eslint-disable no-unused-vars */
   const [results, setResults] = useState(null);
   const [error, setError] = useState('');
   const [isSearching, setIsSearching] = useState(true);
   const { user } = useContext(AppContext);
-
   const { params } = parseRoute(window.location.hash);
   const term = params.get('term');
   const location = params.get('location');
@@ -19,10 +18,10 @@ function Results() {
         return res.json();
       })
       .then(data => {
-        if (data.error) {
-          setError('Sorry, no events found.');
-        }
         setIsSearching(false);
+        if (data.error) {
+          return setError('Sorry, no events found.');
+        }
         setResults(data);
       })
       .catch(err => console.error(err));
@@ -40,8 +39,19 @@ function Results() {
     <div className="row justify-content-center pt-5">
       <div className="col-sm-10 col-md-9 col-lg-7">
         {error
-          ? <h1 className="text-center">{error}</h1>
-          : <h3 className="mb-3">{`${term} near ${location}`}</h3>
+          ? <h2 className="text-center font-rubik">{error}</h2>
+          : (
+            <>
+              <h3 className="mb-3 font-rubik">{`${term} near ${location}`}</h3>
+              <ul className="ps-0" >
+                {
+                  results.map(business => {
+                    return <Card key={business.id} businessInfo={business} />;
+                  })
+                }
+              </ul>
+            </>
+            )
         }
       </div>
     </div>
@@ -49,3 +59,5 @@ function Results() {
 }
 
 export default Results;
+
+// clean up

@@ -27,3 +27,17 @@ body {
 .home-container-padding {
   padding-top: 9rem;
 }
+
+.event-image {
+  width: 100%;
+  height: 15.625rem;
+  object-fit: cover;
+}
+
+.star-icon {
+  font-size: 0.9rem;
+}
+
+.bookmark-icon {
+  font-size: 1.25rem;
+}

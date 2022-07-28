@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const yelp = require('yelp-fusion');
 const client = yelp.client(process.env.YELP_API_KEY);
 const ClientError = require('./client-error');
+const authorizationMiddleware = require('./authorization-middleware');
 const errorMiddleware = require('./error-middleware');
 
 const db = new pg.Pool({
@@ -105,6 +106,8 @@ app.get('/api/search-yelp', (req, res, next) => {
       next(err);
     });
 });
+
+app.use(authorizationMiddleware);
 
 app.use(errorMiddleware);
 

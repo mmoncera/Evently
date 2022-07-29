@@ -109,6 +109,23 @@ app.get('/api/search-yelp', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.post('/api/bookmarks', (req, res, next) => {
+  const { userId } = req.user;
+  const { businessId, image, name, rating, reviewCount, price, categories, address, phone } = req.body.results;
+  const sql = `
+    insert into "bookmarks" ("userId", "businessId", "image", "name", "rating", "reviewCount", "price", "categories", "address", "phone")
+    values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    returning *
+  `;
+  const params = [userId, businessId, image, name, rating, reviewCount, price, categories, address, phone];
+  db.query(sql, params)
+    .then(result => {
+      const [bookmark] = result.rows;
+      res.status(201).json(bookmark);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

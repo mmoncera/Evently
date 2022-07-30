@@ -16,7 +16,7 @@ function App() {
     window.addEventListener('hashchange', () => {
       setRoute(parseRoute(window.location.hash));
     });
-    const token = window.localStorage.getItem('react-context-jwt');
+    const token = window.localStorage.getItem('jwt');
     const user = token ? jwtDecode(token) : null;
     setUser(user);
     setIsAuthorizing(false);
@@ -24,12 +24,12 @@ function App() {
 
   function handleSignIn(result) {
     const { user, token } = result;
-    window.localStorage.setItem('react-context-jwt', token);
+    window.localStorage.setItem('jwt', token);
     setUser(user);
   }
 
   function handleSignOut() {
-    window.localStorage.removeItem('react-context-jwt');
+    window.localStorage.removeItem('jwt');
     setUser(null);
   }
 

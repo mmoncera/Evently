@@ -73,5 +73,3 @@ function EventCard(props) {
 }
 
 export default EventCard;
-
-// clean up

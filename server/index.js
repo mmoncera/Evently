@@ -109,6 +109,19 @@ app.get('/api/search-yelp', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.get('/api/bookmarks', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    select *
+    from "bookmarks"
+    where "userId" = $1
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => res.json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
   const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = req.body.event;
@@ -122,6 +135,22 @@ app.post('/api/bookmarks', (req, res, next) => {
     .then(result => {
       const [bookmark] = result.rows;
       res.status(201).json(bookmark);
+    })
+    .catch(err => next(err));
+});
+
+app.delete('/api/bookmarks', (req, res, next) => {
+  const { userId } = req.user;
+  const { eventId } = req.body.event;
+  const sql = `
+    delete from "bookmarks"
+    where "eventId" = $1 and "userId" = $2
+  `;
+  const params = [eventId, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [bookmark] = result.rows;
+      res.status(204).json(bookmark);
     })
     .catch(err => next(err));
 });

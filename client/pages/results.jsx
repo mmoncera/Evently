@@ -4,9 +4,9 @@ import EventCard from '../components/event-card';
 import { AppContext, parseRoute } from '../lib';
 
 function Results() {
-  const [results, setResults] = useState(null);
-  const [error, setError] = useState('');
   const [isSearching, setIsSearching] = useState(true);
+  const [error, setError] = useState('');
+  const [results, setResults] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const { user } = useContext(AppContext);
 
@@ -26,7 +26,7 @@ function Results() {
       .then(res => res.json())
       .then(data => {
         setIsSearching(false);
-        if (data.error) {
+        if (data.error || data.length === 0) {
           return setError('Sorry, no events found.');
         }
         setResults(data);
@@ -55,7 +55,6 @@ function Results() {
       .map(category => category.title)
       .join(' • ');
     const address = eventInfo.location.display_address.join(', ');
-
     eventInfo = {
       eventId: eventInfo.id,
       alias: eventInfo.alias,
@@ -68,13 +67,43 @@ function Results() {
       address,
       phone: eventInfo.display_phone
     };
-
     return eventInfo;
   }
 
-  function confirmBookmarkStatus(eventId) {
-    const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventId);
-    return bookmarkIndex >= 0;
+  function handleAddBookmark(eventInfo) {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ eventInfo })
+    };
+    fetch('/api/bookmarks', req)
+      .then(res => setBookmarks([...bookmarks, eventInfo]))
+      .catch(err => console.error(err));
+  }
+
+  function handleDeleteBookmark(eventInfo) {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ eventInfo })
+    };
+    fetch('/api/bookmarks', req)
+      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.eventId !== eventInfo.eventId)))
+      .catch(err => console.error(err));
+  }
+
+  function renderBookmarkIcon(eventInfo) {
+    const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventInfo.eventId);
+    if (bookmarkIndex >= 0) {
+      return <i className="fa-solid fa-bookmark bookmark-icon" onClick={() => handleDeleteBookmark(eventInfo)}></i>;
+    }
+    return <i className="fa-regular fa-bookmark bookmark-icon" onClick={() => handleAddBookmark(eventInfo)}></i>;
   }
 
   if (!user) {
@@ -93,14 +122,13 @@ function Results() {
     <div className="row justify-content-center pt-5">
       <div className="col-sm-10 col-md-9 col-lg-7">
         {error && <h2 className="text-center font-rubik">{error}</h2>}
-
         {!error &&
           <>
             <h3 className="mb-3 font-rubik">{`${term} near ${location}`}</h3>
             <ul className="ps-0" >
               {results.map(result => {
                 const eventInfo = formatEventInfo(result);
-                return <EventCard key={eventInfo.eventId} event={eventInfo} bookmarkStatus={confirmBookmarkStatus(eventInfo.eventId)}/>;
+                return <EventCard key={eventInfo.eventId} eventInfo={eventInfo} icon={renderBookmarkIcon(eventInfo)}/>;
               })}
             </ul>
           </>

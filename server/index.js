@@ -124,7 +124,7 @@ app.get('/api/bookmarks', (req, res, next) => {
 
 app.post('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
-  const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = req.body.event;
+  const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = req.body.eventInfo;
   const sql = `
     insert into "bookmarks" ("userId", "eventId", "alias", "imageUrl", "name", "rating", "reviewCount", "price", "type", "address", "phone")
     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
@@ -141,7 +141,7 @@ app.post('/api/bookmarks', (req, res, next) => {
 
 app.delete('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
-  const { eventId } = req.body.event;
+  const { eventId } = req.body.eventInfo;
   const sql = `
     DELETE FROM "bookmarks"
     WHERE "userId" = $1 and "eventId" = $2

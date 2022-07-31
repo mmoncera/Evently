@@ -1,46 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function EventCard(props) {
-  const { event, bookmarkStatus } = props;
-  const [isBookmarked, setIsBookmarked] = useState(bookmarkStatus);
-  const { alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = event;
-
-  function handleAddBookmark() {
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ event })
-    };
-    fetch('/api/bookmarks', req)
-      .then(res => setIsBookmarked(true))
-      .catch(err => console.error(err));
-  }
-
-  function handleDeleteBookmark() {
-    const req = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ event })
-    };
-    fetch('/api/bookmarks', req)
-      .then(res => setIsBookmarked(false))
-      .catch(err => console.error(err));
-  }
-
-  function renderIcon() {
-    if (isBookmarked) {
-      return <i className="fa-solid fa-bookmark bookmark-icon" onClick={handleDeleteBookmark}></i>;
-    }
-    if (!isBookmarked) {
-      return <i className="fa-regular fa-bookmark bookmark-icon" onClick={handleAddBookmark}></i>;
-    }
-  }
+  const { eventInfo, icon } = props;
+  const { alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = eventInfo;
 
   return (
     <div id={alias} className="card mb-4 shadow">
@@ -62,8 +24,8 @@ function EventCard(props) {
         </div>
         <div className="col-1">
           <div className="card-body ps-0">
-            <button className="btn border-0">
-              {renderIcon()}
+            <button className="btn border-0 p-0 lh-1">
+              {icon}
             </button>
           </div>
         </div>

@@ -19,20 +19,19 @@ CREATE TABLE "users" (
 
 
 CREATE TABLE "bookmarks" (
-    "businessId" text NOT NULL,
+    "bookmarkId" serial NOT NULL,
     "userId" integer NOT NULL,
-    "image" TEXT NOT NULL,
+    "eventId" text NOT NULL,
+    "alias" text NOT NULL,
+    "imageUrl" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "rating" TEXT NOT NULL,
     "reviewCount" integer NOT NULL,
-    "price" TEXT NOT NULL,
-    "categories" json NOT NULL,
-    "street" TEXT NOT NULL,
-    "city" TEXT NOT NULL,
-    "state" TEXT NOT NULL,
-    "zipCode" TEXT NOT NULL,
+    "price" TEXT,
+    "type" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    CONSTRAINT "bookmarks_pk" PRIMARY KEY ("businessId")
+    CONSTRAINT "bookmarks_pk" PRIMARY KEY ("bookmarkId")
 ) WITH (
   OIDS=FALSE
 );

@@ -17,17 +17,17 @@ function AppDrawer() {
         </div>
         <div className="offcanvas-body px-0">
           <div className="navbar-nav justify-content-end flex-grow-1 h4 font-rubik" data-bs-dismiss="offcanvas">
-              <a className="nav-link mb-3 ps-3 text-dark" href="#bookmarks">
+              <a className="nav-link py-3 ps-3 text-dark" href="#bookmarks">
                 <i className="fa-solid fa-bookmark"></i>
-                <span className="ms-4">Bookmarks</span>
+                <span className="ps-4">Bookmarks</span>
               </a>
-              <a className="nav-link mb-3 ps-3 text-dark" href="#">
+              <a className="nav-link py-3 ps-3 text-dark" href="#">
                 <i className="fa-solid fa-clipboard-list"></i>
-                <span className="ms-4">Itineraries</span>
+                <span className="ps-4">Itineraries</span>
               </a>
-              <a className="nav-link mb-3 ps-3 text-dark" href="#sign-in" onClick={handleSignOut}>
+              <a className="nav-link py-3 ps-3 text-dark" href="#sign-in" onClick={handleSignOut}>
                 <i className="fa-solid fa-arrow-right-from-bracket sign-out-icon"></i>
-                <span className="ms-4">Sign Out</span>
+                <span className="ps-4">Sign Out</span>
               </a>
           </div>
         </div>

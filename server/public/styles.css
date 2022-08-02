@@ -1,5 +1,7 @@
 body {
+  background-color: rgb(248, 249, 250);
   font-family: Karla, sans-serif;
+  min-width: 15.625rem;
 }
 
 .font-rubik {
@@ -40,4 +42,8 @@ body {
 
 .star-icon {
   font-size: 0.9rem;
+}
+
+.ellipses-trash-icon {
+  min-width: 18px;
 }

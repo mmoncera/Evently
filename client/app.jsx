@@ -38,7 +38,7 @@ function App() {
     if (path === '') {
       return <Home />;
     }
-    if (path === 'sign-in' || path === 'sign-up') {
+    if (path === 'sign-in' || path === 'register') {
       return <Auth />;
     }
     if (path === 'results') {

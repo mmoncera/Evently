@@ -36,7 +36,7 @@ function AuthForm(props) {
         if (!result) {
           return;
         }
-        if (action === 'sign-up') {
+        if (action === 'register') {
           window.location.hash = '#sign-in';
         } else if (result.user && result.token) {
           onSignIn(result);
@@ -74,14 +74,14 @@ function AuthForm(props) {
     setErrorMessage('');
   }
 
-  const formTitle = action === 'sign-up' ? 'Register' : 'Sign In';
-  const alternateActionHref = action === 'sign-up' ? '#sign-in' : '#sign-up';
+  const formTitle = action === 'register' ? 'Register' : 'Sign In';
+  const alternateActionHref = action === 'register' ? '#sign-in' : '#register';
   const alternateActionStatement =
-    action === 'sign-up'
+    action === 'register'
       ? 'Already have an account?'
       : "Don't have an account?";
-  const alternateActionLinkText = action === 'sign-up' ? 'Sign In' : 'Register';
-  const submitButton = action === 'sign-up' ? 'Register' : 'Sign In';
+  const alternateActionLinkText = action === 'register' ? 'Sign In' : 'Register';
+  const submitButton = action === 'register' ? 'Register' : 'Sign In';
 
   return (
     <>

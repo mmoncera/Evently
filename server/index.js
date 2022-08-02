@@ -38,9 +38,9 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "username", "createdAt"
+        INSERT INTO "users" ("username", "hashedPassword")
+        VALUES ($1, $2)
+        RETURNING "userId", "username", "createdAt"
       `;
       const params = [username, hashedPassword];
       return db.query(sql, params);
@@ -63,10 +63,10 @@ app.post('/api/auth/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "userId",
+    SELECT "userId",
            "hashedPassword"
-    from "users"
-    where "username" = $1
+    FROM "users"
+    WHERE "username" = $1
   `;
   const params = [username];
   db.query(sql, params)
@@ -112,9 +112,9 @@ app.use(authorizationMiddleware);
 app.get('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    select *
-    from "bookmarks"
-    where "userId" = $1
+    SELECT *
+    FROM "bookmarks"
+    WHERE "userId" = $1
   `;
   const params = [userId];
   db.query(sql, params)
@@ -126,9 +126,9 @@ app.post('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
   const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = req.body.eventInfo;
   const sql = `
-    insert into "bookmarks" ("userId", "eventId", "alias", "imageUrl", "name", "rating", "reviewCount", "price", "type", "address", "phone")
-    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-    returning *
+    INSERT INTO "bookmarks" ("userId", "eventId", "alias", "imageUrl", "name", "rating", "reviewCount", "price", "type", "address", "phone")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    RETURNING *
   `;
   const params = [userId, eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone];
   db.query(sql, params)

@@ -101,9 +101,9 @@ function Results() {
   function renderBookmarkIcon(eventInfo) {
     const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventInfo.eventId);
     if (bookmarkIndex >= 0) {
-      return <i className="fa-solid fa-bookmark bookmark-icon" onClick={() => handleDeleteBookmark(eventInfo)}></i>;
+      return <i className="fa-solid fa-bookmark fs-5" onClick={() => handleDeleteBookmark(eventInfo)}></i>;
     }
-    return <i className="fa-regular fa-bookmark bookmark-icon" onClick={() => handleAddBookmark(eventInfo)}></i>;
+    return <i className="fa-regular fa-bookmark fs-5" onClick={() => handleAddBookmark(eventInfo)}></i>;
   }
 
   if (!user) {

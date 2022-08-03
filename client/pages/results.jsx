@@ -9,6 +9,9 @@ function Results() {
   const [results, setResults] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const { user } = useContext(AppContext);
+  const { params } = parseRoute(window.location.hash);
+  const term = params.get('term');
+  const location = params.get('location');
 
   useEffect(() => {
     searchYelp();
@@ -100,10 +103,16 @@ function Results() {
 
   function renderBookmarkIcon(eventInfo) {
     const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventInfo.eventId);
-    if (bookmarkIndex >= 0) {
-      return <i className="fa-solid fa-bookmark fs-5" onClick={() => handleDeleteBookmark(eventInfo)}></i>;
-    }
-    return <i className="fa-regular fa-bookmark fs-5" onClick={() => handleAddBookmark(eventInfo)}></i>;
+
+    const icon = bookmarkIndex >= 0
+      ? <i className="fa-solid fa-bookmark fs-5" onClick={() => handleDeleteBookmark(eventInfo)}></i>
+      : <i className="fa-regular fa-bookmark fs-5" onClick={() => handleAddBookmark(eventInfo)}></i>;
+
+    return (
+      <button className="btn border-0 p-0 lh-1">
+        {icon}
+      </button>
+    );
   }
 
   if (!user) {
@@ -113,10 +122,6 @@ function Results() {
   if (isSearching) {
     return null;
   }
-
-  const { params } = parseRoute(window.location.hash);
-  const term = params.get('term');
-  const location = params.get('location');
 
   return (
     <div className="row justify-content-center pt-5">

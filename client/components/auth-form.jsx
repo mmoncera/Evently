@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-function AuthForm(props) {
+function AuthForm({ action, onSignIn }) {
   const [userInfo, setUserInfo] = useState({ username: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
-  const { action, onSignIn } = props;
 
   function handleChange(event) {
     const { name, value } = event.target;

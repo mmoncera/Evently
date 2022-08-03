@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 import Home from './pages/home';
 import Auth from './pages/auth';
 import Results from './pages/results';
+import Bookmarks from './pages/bookmarks';
 import Header from './components/header';
 import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
@@ -38,11 +39,14 @@ function App() {
     if (path === '') {
       return <Home />;
     }
-    if (path === 'sign-in' || path === 'sign-up') {
+    if (path === 'sign-in' || path === 'register') {
       return <Auth />;
     }
     if (path === 'results') {
       return <Results />;
+    }
+    if (path === 'bookmarks') {
+      return <Bookmarks />;
     }
   }
 

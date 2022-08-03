@@ -1,5 +1,7 @@
 body {
+  background-color: #f8f9fa;
   font-family: Karla, sans-serif;
+  min-width: 15.625rem;
 }
 
 .font-rubik {
@@ -12,16 +14,20 @@ body {
   letter-spacing: 0.07rem;
 }
 
+.sign-out-icon {
+  max-width: 1.125rem;
+}
+
+.nav-link:hover {
+  background-color: #e8e8e8;
+}
+
 .page-height {
   min-height: calc(100vh - 3.6rem);
 }
 
 .auth-form-button {
   width: 7rem;
-}
-
-.nav-link:hover {
-  background-color: #e8e8e8;
 }
 
 .home-container-padding {
@@ -38,6 +44,6 @@ body {
   font-size: 0.9rem;
 }
 
-.bookmark-icon {
-  font-size: 1.25rem;
+.ellipses-trash-icon {
+  min-width: 18px;
 }

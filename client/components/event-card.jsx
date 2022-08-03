@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../lib';
 
-function EventCard(props) {
-  const { eventInfo, icon } = props;
+function EventCard({ eventInfo, icon }) {
   const { alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = eventInfo;
+  const { route } = useContext(AppContext);
+
+  const iconPosition = route.path === 'bookmarks' ? 'align-self-center' : '';
 
   return (
     <div id={alias} className="card mb-4 shadow">
@@ -22,11 +25,9 @@ function EventCard(props) {
             <p className="card-text">{phone}</p>
           </div>
         </div>
-        <div className="col-1">
+        <div className={`col-1 ${iconPosition}`}>
           <div className="card-body ps-0">
-            <button className="btn border-0 p-0 lh-1">
-              {icon}
-            </button>
+            {icon}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 function PageContainer({ children }) {
   return (
-    <div className="bg-light">
+    <div>
       <div className="container page-height">{children}</div>
     </div>
   );

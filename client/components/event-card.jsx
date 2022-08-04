@@ -4,7 +4,6 @@ import { AppContext } from '../lib';
 function EventCard({ eventInfo, icon }) {
   const { alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = eventInfo;
   const { route } = useContext(AppContext);
-
   const iconPosition = route.path === 'bookmarks' ? 'align-self-center' : '';
 
   return (

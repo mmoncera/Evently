@@ -9,9 +9,6 @@ function Results() {
   const [results, setResults] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const { user } = useContext(AppContext);
-  const { params } = parseRoute(window.location.hash);
-  const term = params.get('term');
-  const location = params.get('location');
 
   useEffect(() => {
     searchYelp();
@@ -124,6 +121,10 @@ function Results() {
   if (isSearching) {
     return null;
   }
+
+  const { params } = parseRoute(window.location.hash);
+  const term = params.get('term');
+  const location = params.get('location');
 
   return (
     <div className="row justify-content-center pt-5">

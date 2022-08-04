@@ -42,7 +42,7 @@ function Results() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': localStorage.getItem('jwt')
+        'x-access-token': window.localStorage.getItem('jwt')
       }
     };
     fetch('/api/bookmarks', req)
@@ -103,14 +103,16 @@ function Results() {
 
   function renderBookmarkIcon(eventInfo) {
     const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventInfo.eventId);
-
-    const icon = bookmarkIndex >= 0
-      ? <i className="fa-solid fa-bookmark fs-5" onClick={() => handleDeleteBookmark(eventInfo)}></i>
-      : <i className="fa-regular fa-bookmark fs-5" onClick={() => handleAddBookmark(eventInfo)}></i>;
-
+    const isBookmarked = bookmarkIndex >= 0;
+    let bookmarkFunction = handleAddBookmark;
+    let bookmarkIcon = <i className="fa-regular fa-bookmark fs-5"></i>;
+    if (isBookmarked) {
+      bookmarkFunction = handleDeleteBookmark;
+      bookmarkIcon = <i className="fa-solid fa-bookmark fs-5"></i>;
+    }
     return (
-      <button className="btn border-0 p-0 lh-1">
-        {icon}
+      <button className="btn border-0 p-0 lh-1" onClick={() => bookmarkFunction(eventInfo)}>
+        {bookmarkIcon}
       </button>
     );
   }

@@ -10,7 +10,7 @@ function EventCard({ eventInfo, icon }) {
     <div id={alias} className="card mb-4 shadow">
       <div className="row justify-content-center g-0">
         <div className="col-4" >
-          <img src={imageUrl} className="p-3 event-image" alt="event image" />
+          <img src={imageUrl} className="p-3 event-image" alt={`${name} image`} />
         </div>
         <div className="col-7">
           <div className="card-body ps-0">

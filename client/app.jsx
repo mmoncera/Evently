@@ -50,11 +50,11 @@ function App() {
     }
   }
 
-  const contextValue = { user, route, handleSignIn, handleSignOut };
-
   if (isAuthorizing) {
     return null;
   }
+
+  const contextValue = { user, route, handleSignIn, handleSignOut };
 
   return (
     <AppContext.Provider value={contextValue}>

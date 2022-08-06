@@ -7,9 +7,6 @@ function AuthForm({ action, onSignIn }) {
   function handleChange(event) {
     const { name, value } = event.target;
     setUserInfo({ ...userInfo, [name]: value });
-    if (errorMessage) {
-      setErrorMessage('');
-    }
   }
 
   function handleSubmit(event) {
@@ -101,20 +98,17 @@ function AuthForm({ action, onSignIn }) {
         </div>
         <div className="mb-3">
           <input
-            className="form-control bg-light"
-            type="password"
-            name="password"
-            value={userInfo.password}
-            placeholder="Password"
-            required
-            onChange={handleChange}
-          />
+          className="form-control bg-light"
+          type="password"
+          name="password"
+          value={userInfo.password}
+          placeholder="Password"
+          required
+          onChange={handleChange} />
         </div>
         <div className="d-flex justify-content-center align-items-center">
-          <button
-            className="btn btn-primary mb-3 auth-form-button font-rubik"
-            type="submit"
-          >
+          <button className="btn btn-primary mb-3 auth-form-button font-rubik"
+          type="submit">
             {submitButton}
           </button>
         </div>
@@ -126,11 +120,8 @@ function AuthForm({ action, onSignIn }) {
         </p>
         {action === 'sign-in' && (
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              className="btn btn-primary mb-3 auth-form-button font-rubik"
-              type="button"
-              onClick={handleGuestSignIn}
-            >
+            <button className="btn btn-primary mb-3 auth-form-button font-rubik"
+            type="button" onClick={handleGuestSignIn}>
               Guest
             </button>
           </div>

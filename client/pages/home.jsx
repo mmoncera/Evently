@@ -43,7 +43,9 @@ function Home() {
             placeholder="location"
             required
             onChange={handleChange} />
-            <button className="btn btn-primary" type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
+            <button className="btn btn-primary" type="submit">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
           </div>
         </form>
       </div>

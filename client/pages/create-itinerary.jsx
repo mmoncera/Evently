@@ -103,5 +103,3 @@ function CreateItinerary() {
 }
 
 export default CreateItinerary;
-
-// clean up

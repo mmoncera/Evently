@@ -44,9 +44,7 @@ function Results() {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(bookmarks => {
-        setBookmarks(bookmarks);
-      })
+      .then(bookmarks => setBookmarks(bookmarks))
       .catch(err => console.error(err));
   }
 
@@ -136,7 +134,7 @@ function Results() {
             <ul className="ps-0" >
               {results.map(result => {
                 const eventInfo = formatEventInfo(result);
-                return <EventCard key={eventInfo.eventId} eventInfo={eventInfo} icon={renderBookmarkIcon(eventInfo)}/>;
+                return <EventCard key={eventInfo.eventId} eventInfo={eventInfo} icon={renderBookmarkIcon(eventInfo)} />;
               })}
             </ul>
           </>

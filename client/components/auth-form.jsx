@@ -37,10 +37,10 @@ function AuthForm({ action, onSignIn }) {
         }
         if (action === 'register') {
           window.location.hash = '#sign-in';
+          handleResetState();
         } else if (result.user && result.token) {
           onSignIn(result);
         }
-        handleResetState();
       })
       .catch(err => console.error(err));
   }
@@ -89,7 +89,7 @@ function AuthForm({ action, onSignIn }) {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="username"
             value={userInfo.username}
@@ -101,20 +101,17 @@ function AuthForm({ action, onSignIn }) {
         </div>
         <div className="mb-3">
           <input
-            className="form-control bg-light"
-            type="password"
-            name="password"
-            value={userInfo.password}
-            placeholder="Password"
-            required
-            onChange={handleChange}
-          />
+          className="form-control"
+          type="password"
+          name="password"
+          value={userInfo.password}
+          placeholder="Password"
+          required
+          onChange={handleChange} />
         </div>
         <div className="d-flex justify-content-center align-items-center">
-          <button
-            className="btn btn-primary mb-3 auth-form-button font-rubik"
-            type="submit"
-          >
+          <button className="btn btn-primary mb-3 auth-form-button font-rubik"
+          type="submit">
             {submitButton}
           </button>
         </div>
@@ -126,11 +123,8 @@ function AuthForm({ action, onSignIn }) {
         </p>
         {action === 'sign-in' && (
           <div className="d-flex justify-content-center align-items-center">
-            <button
-              className="btn btn-primary mb-3 auth-form-button font-rubik"
-              type="button"
-              onClick={handleGuestSignIn}
-            >
+            <button className="btn btn-primary mb-3 auth-form-button font-rubik"
+            type="button" onClick={handleGuestSignIn}>
               Guest
             </button>
           </div>

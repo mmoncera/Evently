@@ -19,7 +19,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: #e8e8e8;
+  background-color: #e9ecef;
 }
 
 .page-height {
@@ -46,4 +46,8 @@ body {
 
 .ellipses-trash-icon {
   min-width: 18px;
+}
+
+.create-itinerary-button {
+  width: 8rem;
 }

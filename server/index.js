@@ -144,13 +144,47 @@ app.delete('/api/bookmarks', (req, res, next) => {
   const { eventId } = req.body.eventInfo;
   const sql = `
     DELETE FROM "bookmarks"
-    WHERE "userId" = $1 and "eventId" = $2
+    WHERE "userId" = $1 AND "eventId" = $2
   `;
   const params = [userId, eventId];
   db.query(sql, params)
     .then(result => {
       const [bookmark] = result.rows;
       res.status(204).json(bookmark);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/itineraries', (req, res, next) => {
+  const { userId } = req.user;
+  const { itineraryName, itineraryDate } = req.body.itineraryInfo;
+  const sql = `
+    INSERT INTO "itineraries" ("userId", "itineraryName", "itineraryDate")
+    VALUES ($1, $2, $3)
+    RETURNING *
+  `;
+  const params = [userId, itineraryName, itineraryDate];
+  db.query(sql, params)
+    .then(result => {
+      const [itinerary] = result.rows;
+      res.status(201).json(itinerary);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/itinerary-events', (req, res, next) => {
+  const { itineraryId, bookmark } = req.body;
+  const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
+  const sql = `
+    INSERT INTO "itineraryEvents" ("itineraryId", "eventId", "alias", "imageUrl", "name", "rating", "reviewCount", "price", "type", "address", "phone")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    RETURNING *
+  `;
+  const params = [itineraryId, eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone];
+  db.query(sql, params)
+    .then(result => {
+      const [itineraryEvent] = result.rows;
+      res.status(201).json(itineraryEvent);
     })
     .catch(err => next(err));
 });

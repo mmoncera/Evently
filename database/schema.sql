@@ -41,8 +41,8 @@ CREATE TABLE "bookmarks" (
 CREATE TABLE "itineraries" (
     "itineraryId" serial NOT NULL,
     "userId" integer NOT NULL,
-    "name" serial NOT NULL,
-    "startDate" timestamptz NOT NULL,
+    "itineraryName" TEXT NOT NULL,
+    "itineraryDate" timestamptz NOT NULL,
     CONSTRAINT "Itineraries_pk" PRIMARY KEY ("itineraryId")
 ) WITH (
   OIDS=FALSE
@@ -53,16 +53,15 @@ CREATE TABLE "itineraries" (
 CREATE TABLE "itineraryEvents" (
     "itineraryEventId" serial NOT NULL,
     "itineraryId" integer NOT NULL,
-    "image" TEXT NOT NULL,
+    "eventId" text NOT NULL,
+    "alias" text NOT NULL,
+    "imageUrl" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "rating" TEXT NOT NULL,
     "reviewCount" integer NOT NULL,
-    "price" TEXT NOT NULL,
-    "categories" json NOT NULL,
-    "street" TEXT NOT NULL,
-    "city" TEXT NOT NULL,
-    "state" TEXT NOT NULL,
-    "zipCode" TEXT NOT NULL,
+    "price" TEXT,
+    "type" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     CONSTRAINT "itineraryEvents_pk" PRIMARY KEY ("itineraryEventId")
 ) WITH (

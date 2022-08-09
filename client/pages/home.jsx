@@ -27,7 +27,7 @@ function Home() {
         <form onSubmit={handleSearch}>
           <div className="input-group">
             <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="term"
             value={searchInfo.term}
@@ -36,14 +36,16 @@ function Home() {
             autoFocus
             onChange={handleChange} />
             <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="location"
             value={searchInfo.location}
             placeholder="location"
             required
             onChange={handleChange} />
-            <button className="btn btn-primary" type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
+            <button className="btn btn-primary" type="submit">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
           </div>
         </form>
       </div>

@@ -27,7 +27,7 @@ function Home() {
         <form onSubmit={handleSearch}>
           <div className="input-group">
             <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="term"
             value={searchInfo.term}
@@ -36,7 +36,7 @@ function Home() {
             autoFocus
             onChange={handleChange} />
             <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="location"
             value={searchInfo.location}

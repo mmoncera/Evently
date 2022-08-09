@@ -1,4 +1,3 @@
-
 set client_min_messages to warning;
 
 -- DANGER: this is NOT how to do it in the real world.
@@ -42,8 +41,8 @@ CREATE TABLE "bookmarks" (
 CREATE TABLE "itineraries" (
     "itineraryId" serial NOT NULL,
     "userId" integer NOT NULL,
-    "name" TEXT NOT NULL,
-    "date" timestamptz NOT NULL,
+    "itineraryName" TEXT NOT NULL,
+    "itineraryDate" timestamptz NOT NULL,
     CONSTRAINT "Itineraries_pk" PRIMARY KEY ("itineraryId")
 ) WITH (
   OIDS=FALSE

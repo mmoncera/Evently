@@ -157,13 +157,13 @@ app.delete('/api/bookmarks', (req, res, next) => {
 
 app.post('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
-  const { name, date } = req.body.itineraryInfo;
+  const { itineraryName, itineraryDate } = req.body.itineraryInfo;
   const sql = `
-    INSERT INTO "itineraries" ("userId", "name", "date")
+    INSERT INTO "itineraries" ("userId", "itineraryName", "itineraryDate")
     VALUES ($1, $2, $3)
     RETURNING *
   `;
-  const params = [userId, name, date];
+  const params = [userId, itineraryName, itineraryDate];
   db.query(sql, params)
     .then(result => {
       const [itinerary] = result.rows;

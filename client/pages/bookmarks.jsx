@@ -64,7 +64,7 @@ function Bookmarks() {
   }
 
   if (!user) {
-    return <Redirect to='sign-in' />;
+    return <Redirect to="sign-in" />;
   }
 
   if (isLoading) {

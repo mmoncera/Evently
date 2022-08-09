@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Auth from './pages/auth';
 import Results from './pages/results';
 import Bookmarks from './pages/bookmarks';
+import CreateItinerary from './pages/create-itinerary';
 import Header from './components/header';
 import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
@@ -48,6 +49,9 @@ function App() {
     if (path === 'bookmarks') {
       return <Bookmarks />;
     }
+    if (path === 'create-itinerary') {
+      return <CreateItinerary />;
+    }
   }
 
   if (isAuthorizing) {
@@ -60,7 +64,9 @@ function App() {
     <AppContext.Provider value={contextValue}>
       <>
         <Header />
-        <PageContainer>{renderPage()}</PageContainer>
+        <PageContainer>
+          {renderPage()}
+        </PageContainer>
       </>
     </AppContext.Provider>
   );

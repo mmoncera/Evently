@@ -7,6 +7,9 @@ function AuthForm({ action, onSignIn }) {
   function handleChange(event) {
     const { name, value } = event.target;
     setUserInfo({ ...userInfo, [name]: value });
+    if (errorMessage) {
+      setErrorMessage('');
+    }
   }
 
   function handleSubmit(event) {
@@ -34,10 +37,10 @@ function AuthForm({ action, onSignIn }) {
         }
         if (action === 'register') {
           window.location.hash = '#sign-in';
+          handleResetState();
         } else if (result.user && result.token) {
           onSignIn(result);
         }
-        handleResetState();
       })
       .catch(err => console.error(err));
   }
@@ -86,7 +89,7 @@ function AuthForm({ action, onSignIn }) {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <input
-            className="form-control bg-light"
+            className="form-control"
             type="text"
             name="username"
             value={userInfo.username}
@@ -98,7 +101,7 @@ function AuthForm({ action, onSignIn }) {
         </div>
         <div className="mb-3">
           <input
-          className="form-control bg-light"
+          className="form-control"
           type="password"
           name="password"
           value={userInfo.password}

@@ -155,6 +155,20 @@ app.delete('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/itineraries', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS IntineraryDate
+    FROM "itineraries"
+    WHERE "userId" = $1
+    ORDER BY "itineraryDate"
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
   const { itineraryName, itineraryDate } = req.body.itineraryInfo;

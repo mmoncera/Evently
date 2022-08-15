@@ -158,7 +158,7 @@ app.delete('/api/bookmarks', (req, res, next) => {
 app.get('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS IntineraryDate
+    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS itineraryDate
     FROM "itineraries"
     WHERE "userId" = $1
     ORDER BY "itineraryDate"

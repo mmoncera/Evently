@@ -187,6 +187,21 @@ app.post('/api/itineraries', (req, res, next) => {
 });
 
 app.post('/api/itinerary-events', (req, res, next) => {
+  const { itineraryId } = req.body;
+  const sql = `
+    SELECT *
+    FROM "itineraryEvents"
+    WHERE "itineraryId" = $1
+  `;
+  const params = [itineraryId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/itinerary-events', (req, res, next) => {
   const { itineraryId, bookmark } = req.body;
   const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
   const sql = `

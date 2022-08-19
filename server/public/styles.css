@@ -55,6 +55,12 @@ body {
   background-color: #e8e8e8;
 }
 
-.itinerary-trash-icon {
+.itinerary-card:hover {
+  background-color: #6c757d;
+  opacity: 0.8;
+}
+
+.itinerary-card-trash-icon,
+.itinerary-details-trash-icon {
   font-size: 1.5rem;
 }

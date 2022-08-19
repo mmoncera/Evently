@@ -158,7 +158,7 @@ app.delete('/api/bookmarks', (req, res, next) => {
 app.get('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS itineraryDate
+    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS "formattedItineraryDate"
     FROM "itineraries"
     WHERE "userId" = $1
     ORDER BY "itineraryDate"
@@ -186,8 +186,8 @@ app.post('/api/itineraries', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/itinerary-events', (req, res, next) => {
-  const { itineraryId } = req.body;
+app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
+  const { itineraryId } = req.params;
   const sql = `
     SELECT *
     FROM "itineraryEvents"

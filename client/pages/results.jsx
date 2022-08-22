@@ -44,7 +44,7 @@ function Results() {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(bookmarks => setBookmarks(bookmarks))
+      .then(data => setBookmarks(data))
       .catch(err => console.error(err));
   }
 

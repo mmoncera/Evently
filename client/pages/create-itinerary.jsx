@@ -26,7 +26,18 @@ function CreateItinerary() {
       .then(data => {
         const { itineraryId } = data;
         const { params } = parseRoute(window.location.hash);
-        const bookmark = JSON.parse(params.get('bookmark'));
+        const bookmark = {
+          eventId: params.get('eventId'),
+          alias: params.get('alias'),
+          imageUrl: params.get('imageUrl'),
+          name: params.get('name'),
+          rating: params.get('rating'),
+          reviewCount: params.get('reviewCount'),
+          price: params.get('price'),
+          type: params.get('type'),
+          address: params.get('address'),
+          phone: params.get('phone')
+        };
         const reqItineraryEvents = {
           method: 'POST',
           headers: {
@@ -61,7 +72,7 @@ function CreateItinerary() {
   }
 
   if (!user) {
-    return <Redirect to='sign-in' />;
+    return <Redirect to="sign-in" />;
   }
 
   return (

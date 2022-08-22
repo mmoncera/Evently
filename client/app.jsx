@@ -5,6 +5,8 @@ import Auth from './pages/auth';
 import Results from './pages/results';
 import Bookmarks from './pages/bookmarks';
 import CreateItinerary from './pages/create-itinerary';
+import Itineraries from './pages/itineraries';
+import ItineraryDetails from './pages/itinerary-details';
 import Header from './components/header';
 import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
@@ -51,6 +53,12 @@ function App() {
     }
     if (path === 'create-itinerary') {
       return <CreateItinerary />;
+    }
+    if (path === 'itineraries') {
+      return <Itineraries />;
+    }
+    if (path === 'itinerary-details') {
+      return <ItineraryDetails />;
     }
   }
 

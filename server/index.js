@@ -155,6 +155,20 @@ app.delete('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/itineraries', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS "formattedItineraryDate"
+    FROM "itineraries"
+    WHERE "userId" = $1
+    ORDER BY "itineraryDate"
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => res.status(200).json(result.rows))
+    .catch(err => next(err));
+});
+
 app.post('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
   const { itineraryName, itineraryDate } = req.body.itineraryInfo;
@@ -168,6 +182,21 @@ app.post('/api/itineraries', (req, res, next) => {
     .then(result => {
       const [itinerary] = result.rows;
       res.status(201).json(itinerary);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
+  const { itineraryId } = req.params;
+  const sql = `
+    SELECT *
+    FROM "itineraryEvents"
+    WHERE "itineraryId" = $1
+  `;
+  const params = [itineraryId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
     })
     .catch(err => next(err));
 });

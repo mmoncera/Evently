@@ -22,9 +22,9 @@ function Bookmarks() {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(bookmarks => {
+      .then(data => {
         setIsLoading(false);
-        setBookmarks(bookmarks);
+        setBookmarks(data);
       })
       .catch(err => console.error(err));
   }
@@ -44,6 +44,8 @@ function Bookmarks() {
   }
 
   function renderEllipsisIcon(bookmark) {
+    const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
+
     return (
       <div className="dropdown">
         <button className="btn border-0 ms-2 p-0 lh-1 font-rubik" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +56,7 @@ function Bookmarks() {
             <i className="fa-solid fa-trash-can ellipses-trash-icon"></i>
             <span className="ps-2 font-rubik">Delete</span>
           </button>
-          <a className="dropdown-item" href={`#create-itinerary?bookmark=${JSON.stringify(bookmark)}`}>
+          <a className="dropdown-item" href={`#create-itinerary?eventId=${eventId}&alias=${alias}&imageUrl=${imageUrl}&name=${name}&rating=${rating}&reviewCount=${reviewCount}&price=${price}&type=${type}&address=${address}&phone=${phone}`}>
             <i className="fa-solid fa-rectangle-list"></i>
             <span className="ps-2 font-rubik">Create Itinerary</span>
           </a>
@@ -64,7 +66,7 @@ function Bookmarks() {
   }
 
   if (!user) {
-    return <Redirect to='sign-in' />;
+    return <Redirect to="sign-in" />;
   }
 
   if (isLoading) {

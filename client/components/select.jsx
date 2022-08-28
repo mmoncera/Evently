@@ -42,5 +42,3 @@ function Select({ itineraryEvents, addItineraryEvent }) {
 }
 
 export default Select;
-
-// Clean up

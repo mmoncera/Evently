@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import Select from '../components/select';
 import EventCard from '../components/event-card';
 import { AppContext, parseRoute } from '../lib';
 
@@ -31,6 +32,23 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
+  function addItineraryEvent(bookmark) {
+    const { params } = parseRoute(window.location.hash);
+    const itineraryId = params.get('itineraryId');
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ itineraryId, bookmark })
+    };
+    fetch('/api/itinerary-events', req)
+      .then(res => res.json())
+      .then(data => setItineraryEvents([...itineraryEvents, data]))
+      .catch(err => console.error(err));
+  }
+
   if (!user) {
     return <Redirect to="sign-in" />;
   }
@@ -44,8 +62,8 @@ function ItineraryDetails() {
   const formattedItineraryDate = params.get('formattedItineraryDate');
 
   const itineraryDetailsTrashIcon =
-    <button className="btn border-0 ms-2 p-0">
-      <i className="fa-solid fa-trash-can itinerary-details-trash-icon"></i>
+    <button className="btn border-0 ms-1 p-0">
+      <i className="fa-regular fa-trash-can itinerary-details-trash-icon"></i>
     </button>;
 
   return (
@@ -54,10 +72,7 @@ function ItineraryDetails() {
         <h3 className="font-rubik">{itineraryName}</h3>
         <p className="font-rubik">{formattedItineraryDate}</p>
         <hr />
-        <select className="form-select-sm mb-3 px-2">
-            <option value="Add an Event">Add an event</option>
-            <option value="Example">Example</option>
-        </select>
+        <Select itineraryEvents={itineraryEvents} addItineraryEvent={addItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
             return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={itineraryDetailsTrashIcon}/>;

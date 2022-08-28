@@ -2,14 +2,15 @@ import React, { useContext } from 'react';
 import { AppContext } from '../lib';
 
 function EventCard({ eventInfo, icon }) {
-  const { alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = eventInfo;
+  const { alias, imageUrl, name, rating, reviewCount, type, address, phone } = eventInfo;
+  const price = eventInfo.price === 'null' ? '' : eventInfo.price;
   const { route } = useContext(AppContext);
   const iconPosition = route.path === 'bookmarks' || route.path === 'itinerary-details' ? 'align-self-center' : '';
 
   return (
     <div id={alias} className="card mb-4 shadow">
       <div className="row justify-content-center g-0">
-        <div className="col-4" >
+        <div className="col-4">
           <img src={imageUrl} className="p-3 event-image" alt={`${name} image`} />
         </div>
         <div className="col-7">

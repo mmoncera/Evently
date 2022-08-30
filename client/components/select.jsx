@@ -30,7 +30,7 @@ function Select({ itineraryEvents, addItineraryEvent }) {
   }
 
   return (
-    <select className="form-select-sm mb-3" onChange={handleOptionChange}>
+    <select className="form-select-sm mb-3 font-rubik" onChange={handleOptionChange}>
       <option value="Add an event">Add an event</option>
       {options.map(option => {
         const itineraryEventIndex = itineraryEvents.findIndex(({ alias }) => alias === option.alias);

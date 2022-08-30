@@ -26,7 +26,7 @@ function CreateItinerary() {
       .then(data => {
         const { itineraryId } = data;
         const { params } = parseRoute(window.location.hash);
-        const bookmark = {
+        const eventInfo = {
           eventId: params.get('eventId'),
           alias: params.get('alias'),
           imageUrl: params.get('imageUrl'),
@@ -44,7 +44,7 @@ function CreateItinerary() {
             'Content-Type': 'application/json',
             'x-access-token': window.localStorage.getItem('jwt')
           },
-          body: JSON.stringify({ itineraryId, bookmark })
+          body: JSON.stringify({ itineraryId, eventInfo })
         };
         fetch('/api/itinerary-events', reqItineraryEvents)
           .then(res => res.json())

@@ -200,8 +200,8 @@ app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
 });
 
 app.post('/api/itinerary-events', (req, res, next) => {
-  const { itineraryId, bookmark } = req.body;
-  const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
+  const { itineraryId, eventInfo } = req.body;
+  const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = eventInfo;
   const sql = `
     INSERT INTO "itineraryEvents" ("itineraryId", "eventId", "alias", "imageUrl", "name", "rating", "reviewCount", "price", "type", "address", "phone")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)

@@ -32,7 +32,7 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
-  function addItineraryEvent(bookmark) {
+  function handleAddItineraryEvent(eventInfo) {
     const { params } = parseRoute(window.location.hash);
     const itineraryId = params.get('itineraryId');
     const req = {
@@ -41,12 +41,34 @@ function ItineraryDetails() {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
       },
-      body: JSON.stringify({ itineraryId, bookmark })
+      body: JSON.stringify({ itineraryId, eventInfo })
     };
     fetch('/api/itinerary-events', req)
       .then(res => res.json())
       .then(data => setItineraryEvents([...itineraryEvents, data]))
       .catch(err => console.error(err));
+  }
+
+  function handleDeleteItineraryEvent(eventInfo) {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ eventInfo })
+    };
+    fetch('/api/itinerary-events', req)
+      .then(res => setItineraryEvents(itineraryEvents.filter(intineraryEvent => intineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
+      .catch(err => console.error(err));
+  }
+
+  function renderItineraryDetailsTrashIcon(eventInfo) {
+    return (
+      <button className="btn border-0 ms-1 p-0" onClick={() => handleDeleteItineraryEvent(eventInfo)}>
+        <i className="fa-regular fa-trash-can itinerary-details-trash-icon"></i>
+      </button>
+    );
   }
 
   if (!user) {
@@ -61,21 +83,16 @@ function ItineraryDetails() {
   const itineraryName = params.get('itineraryName');
   const formattedItineraryDate = params.get('formattedItineraryDate');
 
-  const itineraryDetailsTrashIcon =
-    <button className="btn border-0 ms-1 p-0">
-      <i className="fa-regular fa-trash-can itinerary-details-trash-icon"></i>
-    </button>;
-
   return (
     <div className="row justify-content-center pt-5">
       <div className="col-sm-10 col-md-9 col-lg-7">
         <h3 className="font-rubik">{itineraryName}</h3>
         <p className="font-rubik">{formattedItineraryDate}</p>
         <hr />
-        <Select itineraryEvents={itineraryEvents} addItineraryEvent={addItineraryEvent}/>
+        <Select itineraryEvents={itineraryEvents} addItineraryEvent={handleAddItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
-            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={itineraryDetailsTrashIcon}/>;
+            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent)}/>;
           })}
         </ul>
       </div>
@@ -84,3 +101,5 @@ function ItineraryDetails() {
 }
 
 export default ItineraryDetails;
+
+// Clean up

@@ -101,5 +101,3 @@ function ItineraryDetails() {
 }
 
 export default ItineraryDetails;
-
-// Clean up

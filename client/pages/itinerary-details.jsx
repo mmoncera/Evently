@@ -89,7 +89,7 @@ function ItineraryDetails() {
         <h3 className="font-rubik">{itineraryName}</h3>
         <p className="font-rubik">{formattedItineraryDate}</p>
         <hr />
-        <Select itineraryEvents={itineraryEvents} addItineraryEvent={handleAddItineraryEvent}/>
+        <Select itineraryEvents={itineraryEvents} onAddItineraryEvent={handleAddItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
             return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent)}/>;

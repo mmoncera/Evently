@@ -39,7 +39,7 @@ function Bookmarks() {
       body: JSON.stringify({ eventInfo })
     };
     fetch('/api/bookmarks', req)
-      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.eventId !== eventInfo.eventId)))
+      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== eventInfo.bookmarkId)))
       .catch(err => console.error(err));
   }
 

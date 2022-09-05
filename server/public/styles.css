@@ -53,18 +53,15 @@ body {
 
 .itinerary-card {
   background-color: #e8e8e8;
+  transition: scale 250ms;
 }
 
 .itinerary-card:hover {
-  border: 2px solid #007bff;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
 .itinerary-card-trash-icon,
 .itinerary-details-trash-icon {
   font-size: 1.5rem;
-}
-
-.itinerary-card-trash-icon:hover,
-.itinerary-details-trash-icon:hover {
-  color: #007bff;
 }

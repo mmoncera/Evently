@@ -59,14 +59,24 @@ function ItineraryDetails() {
       body: JSON.stringify({ eventInfo })
     };
     fetch('/api/itinerary-events', req)
-      .then(res => setItineraryEvents(itineraryEvents.filter(intineraryEvent => intineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
+      .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
       .catch(err => console.error(err));
   }
 
-  function renderItineraryDetailsTrashIcon(eventInfo) {
+  function handleToggleHover(eventInfo) {
+    const copyEventInfo = eventInfo.hovered
+      ? { ...eventInfo, hovered: false }
+      : { ...eventInfo, hovered: true };
+    const copyItineraryEvents = [...itineraryEvents];
+    const eventIndex = copyItineraryEvents.findIndex(event => event.itineraryEventId === eventInfo.itineraryEventId);
+    copyItineraryEvents[eventIndex] = copyEventInfo;
+    setItineraryEvents(copyItineraryEvents);
+  }
+
+  function renderItineraryDetailsTrashIcon(eventInfo, trashIconStyle) {
     return (
-      <button className="btn border-0 ms-1 p-0" onClick={() => handleDeleteItineraryEvent(eventInfo)}>
-        <i className="fa-regular fa-trash-can itinerary-details-trash-icon"></i>
+      <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo)}>
+        <i className={`fa-${trashIconStyle} fa-trash-can itinerary-details-trash-icon`}></i>
       </button>
     );
   }
@@ -92,7 +102,8 @@ function ItineraryDetails() {
         <Select itineraryEvents={itineraryEvents} onAddItineraryEvent={handleAddItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
-            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent)}/>;
+            const trashIconStyle = itineraryEvent.hovered ? 'solid' : 'regular';
+            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent, trashIconStyle)}/>;
           })}
         </ul>
       </div>

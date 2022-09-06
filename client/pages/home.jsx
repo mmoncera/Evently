@@ -13,7 +13,7 @@ function Home() {
 
   function handleSearch(event) {
     event.preventDefault();
-    window.location.hash = `#results?term=${searchInfo.term}&location=${searchInfo.location}`;
+    window.location.hash = `#results?term=${encodeURIComponent(searchInfo.term)}&location=${encodeURIComponent(searchInfo.location)}`;
   }
 
   if (!user) {

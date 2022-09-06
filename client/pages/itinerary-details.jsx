@@ -32,6 +32,16 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
+  function handleToggleHover(eventInfo) {
+    const copyEventInfo = eventInfo.hovered
+      ? { ...eventInfo, hovered: false }
+      : { ...eventInfo, hovered: true };
+    const copyItineraryEvents = [...itineraryEvents];
+    const eventIndex = copyItineraryEvents.findIndex(event => event.itineraryEventId === eventInfo.itineraryEventId);
+    copyItineraryEvents[eventIndex] = copyEventInfo;
+    setItineraryEvents(copyItineraryEvents);
+  }
+
   function handleAddItineraryEvent(eventInfo) {
     const { params } = parseRoute(window.location.hash);
     const itineraryId = params.get('itineraryId');
@@ -61,16 +71,6 @@ function ItineraryDetails() {
     fetch('/api/itinerary-events', req)
       .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
       .catch(err => console.error(err));
-  }
-
-  function handleToggleHover(eventInfo) {
-    const copyEventInfo = eventInfo.hovered
-      ? { ...eventInfo, hovered: false }
-      : { ...eventInfo, hovered: true };
-    const copyItineraryEvents = [...itineraryEvents];
-    const eventIndex = copyItineraryEvents.findIndex(event => event.itineraryEventId === eventInfo.itineraryEventId);
-    copyItineraryEvents[eventIndex] = copyEventInfo;
-    setItineraryEvents(copyItineraryEvents);
   }
 
   function renderItineraryDetailsTrashIcon(eventInfo, trashIconStyle) {

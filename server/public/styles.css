@@ -57,8 +57,8 @@ body {
 }
 
 .itinerary-card:hover {
-  transform: scale(1.05);
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
 }
 
 .itinerary-card-trash-icon,

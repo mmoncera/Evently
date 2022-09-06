@@ -59,23 +59,22 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
-  function handleDeleteItineraryEvent(eventInfo) {
+  function handleDeleteItineraryEvent(itineraryEventId) {
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ eventInfo })
+      }
     };
-    fetch('/api/itinerary-events', req)
-      .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
+    fetch(`/api/itinerary-events/${itineraryEventId}`, req)
+      .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== itineraryEventId)))
       .catch(err => console.error(err));
   }
 
   function renderItineraryDetailsTrashIcon(eventInfo, trashIconStyle) {
     return (
-      <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo)}>
+      <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo.itineraryEventId)}>
         <i className={`fa-${trashIconStyle} fa-trash-can itinerary-details-trash-icon`}></i>
       </button>
     );
@@ -94,8 +93,11 @@ function ItineraryDetails() {
   const formattedItineraryDate = params.get('formattedItineraryDate');
 
   return (
-    <div className="row justify-content-center pt-5">
+    <div className="row justify-content-center pt-4">
       <div className="col-sm-10 col-md-9 col-lg-7">
+        <a href="#itineraries">
+          <i className="fa-regular fa-circle-left mb-3 fs-3"></i>
+        </a>
         <h3 className="font-rubik">{itineraryName}</h3>
         <p className="font-rubik">{formattedItineraryDate}</p>
         <hr />

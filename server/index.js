@@ -40,7 +40,9 @@ app.post('/api/auth/register', (req, res, next) => {
       const sql = `
         INSERT INTO "users" ("username", "hashedPassword")
         VALUES ($1, $2)
-        RETURNING "userId", "username", "createdAt"
+        RETURNING "userId",
+                  "username",
+                  "createdAt"
       `;
       const params = [username, hashedPassword];
       return db.query(sql, params);
@@ -140,14 +142,15 @@ app.post('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/bookmarks', (req, res, next) => {
+app.delete('/api/bookmarks/:bookmarkId', (req, res, next) => {
   const { userId } = req.user;
-  const { eventId } = req.body.eventInfo;
+  const { bookmarkId } = req.params;
   const sql = `
     DELETE FROM "bookmarks"
-    WHERE "userId" = $1 AND "eventId" = $2
+    WHERE "userId" = $1
+    AND "bookmarkId" = $2
   `;
-  const params = [userId, eventId];
+  const params = [userId, bookmarkId];
   db.query(sql, params)
     .then(result => res.sendStatus(204))
     .catch(err => next(err));
@@ -156,7 +159,10 @@ app.delete('/api/bookmarks', (req, res, next) => {
 app.get('/api/itineraries', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS "formattedItineraryDate"
+    SELECT "itineraryId",
+           "itineraryName",
+           to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY')
+           AS "formattedItineraryDate"
     FROM "itineraries"
     WHERE "userId" = $1
     ORDER BY "itineraryDate"
@@ -216,8 +222,8 @@ app.post('/api/itinerary-events', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/itinerary-events', (req, res, next) => {
-  const { itineraryEventId } = req.body.eventInfo;
+app.delete('/api/itinerary-events/:itineraryEventId', (req, res, next) => {
+  const { itineraryEventId } = req.params;
   const sql = `
     DELETE FROM "itineraryEvents"
     WHERE "itineraryEventId" = $1

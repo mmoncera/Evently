@@ -29,22 +29,21 @@ function Bookmarks() {
       .catch(err => console.error(err));
   }
 
-  function handleDeleteBookmark(eventInfo) {
+  function handleDeleteBookmark(bookmarkId) {
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ eventInfo })
+      }
     };
-    fetch('/api/bookmarks', req)
-      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== eventInfo.bookmarkId)))
+    fetch(`/api/bookmarks/${bookmarkId}`, req)
+      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== bookmarkId)))
       .catch(err => console.error(err));
   }
 
   function renderEllipsisIcon(bookmark) {
-    const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
+    const { bookmarkId, eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
 
     return (
       <div className="dropdown">
@@ -52,7 +51,7 @@ function Bookmarks() {
           <i className="fa-solid fa-ellipsis-vertical fs-4"></i>
         </button>
         <ul className="dropdown-menu">
-          <button className="dropdown-item" type="button" onClick={() => handleDeleteBookmark(bookmark)}>
+          <button className="dropdown-item" type="button" onClick={() => handleDeleteBookmark(bookmarkId)}>
             <i className="fa-solid fa-trash-can ellipses-trash-icon"></i>
             <span className="ps-2 font-rubik">Delete</span>
           </button>

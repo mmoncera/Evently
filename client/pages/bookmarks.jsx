@@ -56,7 +56,7 @@ function Bookmarks() {
             <i className="fa-solid fa-trash-can ellipses-trash-icon"></i>
             <span className="ps-2 font-rubik">Delete</span>
           </button>
-          <a className="dropdown-item" href={`#create-itinerary?eventId=${eventId}&alias=${alias}&imageUrl=${imageUrl}&name=${name}&rating=${rating}&reviewCount=${reviewCount}&price=${price}&type=${type}&address=${address}&phone=${phone}`}>
+          <a className="dropdown-item" href={`#create-itinerary?eventId=${eventId}&alias=${alias}&imageUrl=${imageUrl}&name=${encodeURIComponent(name)}&rating=${rating}&reviewCount=${reviewCount}&price=${price}&type=${type}&address=${address}&phone=${phone}`}>
             <i className="fa-solid fa-rectangle-list"></i>
             <span className="ps-2 font-rubik">Create Itinerary</span>
           </a>

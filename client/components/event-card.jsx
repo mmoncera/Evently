@@ -2,7 +2,10 @@ import React, { useContext } from 'react';
 import { AppContext } from '../lib';
 
 function EventCard({ eventInfo, icon }) {
-  const { alias, imageUrl, name, rating, reviewCount, type, address, phone } = eventInfo;
+  const { alias, name, rating, reviewCount, type, address, phone } = eventInfo;
+  const imageUrl = !eventInfo.imageUrl
+    ? './images/no-image.svg.png'
+    : eventInfo.imageUrl;
   const price = eventInfo.price === 'null' ? '' : eventInfo.price;
   const { route } = useContext(AppContext);
   const iconPosition = route.path === 'bookmarks' || route.path === 'itinerary-details' ? 'align-self-center' : '';

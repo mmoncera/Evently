@@ -78,21 +78,21 @@ function Results() {
       body: JSON.stringify({ eventInfo })
     };
     fetch('/api/bookmarks', req)
-      .then(res => setBookmarks([...bookmarks, eventInfo]))
+      .then(res => res.json())
+      .then(data => setBookmarks([...bookmarks, data]))
       .catch(err => console.error(err));
   }
 
-  function handleDeleteBookmark(eventInfo) {
+  function handleDeleteBookmark(bookmarkId) {
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ eventInfo })
+      }
     };
-    fetch('/api/bookmarks', req)
-      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.eventId !== eventInfo.eventId)))
+    fetch(`/api/bookmarks/${bookmarkId}`, req)
+      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== bookmarkId)))
       .catch(err => console.error(err));
   }
 
@@ -100,13 +100,15 @@ function Results() {
     const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.eventId === eventInfo.eventId);
     const isBookmarked = bookmarkIndex >= 0;
     let bookmarkFunction = handleAddBookmark;
+    let bookmarkFunctionParameter = eventInfo;
     let bookmarkIcon = <i className="fa-regular fa-bookmark fs-5"></i>;
     if (isBookmarked) {
       bookmarkFunction = handleDeleteBookmark;
+      bookmarkFunctionParameter = bookmarks[bookmarkIndex].bookmarkId;
       bookmarkIcon = <i className="fa-solid fa-bookmark fs-5"></i>;
     }
     return (
-      <button className="btn border-0 p-0 lh-1" onClick={() => bookmarkFunction(eventInfo)}>
+      <button className="btn border-0 p-0 lh-1" onClick={() => bookmarkFunction(bookmarkFunctionParameter)}>
         {bookmarkIcon}
       </button>
     );

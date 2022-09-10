@@ -1,9 +1,9 @@
-function Redirect(props) {
+function Redirect({ to }) {
   const url = new URL(window.location);
-  if (props.to === '') {
+  if (to === '') {
     url.hash = '#';
   } else {
-    url.hash = props.to;
+    url.hash = to;
   }
   window.location.replace(url);
   return null;

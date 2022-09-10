@@ -17,14 +17,25 @@ function App() {
   const [route, setRoute] = useState(parseRoute(window.location.hash));
 
   useEffect(() => {
+    addHashChangeListener();
+  }, []);
+
+  useEffect(() => {
+    verifyUser();
+  }, []);
+
+  function addHashChangeListener() {
     window.addEventListener('hashchange', () => {
       setRoute(parseRoute(window.location.hash));
     });
+  }
+
+  function verifyUser() {
     const token = window.localStorage.getItem('jwt');
     const user = token ? jwtDecode(token) : null;
     setUser(user);
     setIsAuthorizing(false);
-  }, []);
+  }
 
   function handleSignIn(result) {
     const { user, token } = result;

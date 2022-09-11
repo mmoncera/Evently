@@ -13,7 +13,7 @@ function Home() {
 
   function handleSearch(event) {
     event.preventDefault();
-    window.location.hash = `#results?term=${encodeURIComponent(searchInfo.term)}&location=${encodeURIComponent(searchInfo.location)}`;
+    window.location.hash = `#search-yelp-results?term=${encodeURIComponent(searchInfo.term)}&location=${encodeURIComponent(searchInfo.location)}`;
   }
 
   if (!user) {

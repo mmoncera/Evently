@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import Home from './pages/home';
 import Auth from './pages/auth';
-import Results from './pages/results';
+import SearchYelpResults from './pages/search-yelp-results';
 import Bookmarks from './pages/bookmarks';
 import CreateItinerary from './pages/create-itinerary';
 import Itineraries from './pages/itineraries';
@@ -56,8 +56,8 @@ function App() {
     if (path === 'sign-in' || path === 'register') {
       return <Auth />;
     }
-    if (path === 'results') {
-      return <Results />;
+    if (path === 'search-yelp-results') {
+      return <SearchYelpResults />;
     }
     if (path === 'bookmarks') {
       return <Bookmarks />;

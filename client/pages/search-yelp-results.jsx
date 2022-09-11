@@ -3,10 +3,10 @@ import Redirect from '../components/redirect';
 import EventCard from '../components/event-card';
 import { AppContext, parseRoute } from '../lib';
 
-function Results() {
+function SearchYelpResults() {
   const [isSearching, setIsSearching] = useState(true);
   const [error, setError] = useState('');
-  const [results, setResults] = useState([]);
+  const [searchYelpResults, setSearchYelpResults] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
   const { user } = useContext(AppContext);
 
@@ -29,7 +29,7 @@ function Results() {
         if (data.error || data.length === 0) {
           return setError('Sorry, no events found.');
         }
-        setResults(data);
+        setSearchYelpResults(data);
       })
       .catch(err => console.error(err));
   }
@@ -134,8 +134,8 @@ function Results() {
           <>
             <h3 className="mb-3 font-rubik">{`${term} near ${location}`}</h3>
             <ul className="ps-0" >
-              {results.map(result => {
-                const eventInfo = formatEventInfo(result);
+              {searchYelpResults.map(searchYelpResult => {
+                const eventInfo = formatEventInfo(searchYelpResult);
                 return <EventCard key={eventInfo.eventId} eventInfo={eventInfo} icon={renderBookmarkIcon(eventInfo)} />;
               })}
             </ul>
@@ -146,4 +146,4 @@ function Results() {
   );
 }
 
-export default Results;
+export default SearchYelpResults;

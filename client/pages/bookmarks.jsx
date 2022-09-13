@@ -83,7 +83,7 @@ function Bookmarks() {
         {bookmarkMessage}
         <ul className="ps-0" >
           {bookmarks.map(bookmark => {
-            return <EventCard key={bookmark.bookmarkId} eventInfo={bookmark} icon={renderEllipsisIcon(bookmark)}/>;
+            return <EventCard key={bookmark.bookmarkId} eventInfo={bookmark} icon={renderEllipsisIcon(bookmark)} />;
           })}
         </ul>
       </div>

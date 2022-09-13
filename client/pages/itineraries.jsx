@@ -48,7 +48,7 @@ function Itineraries() {
         {itinerariesMessage}
         <ul className="ps-0" >
           {itineraries.map(itinerary => {
-            return <ItineraryCard key={itinerary.itineraryId} itineraryInfo={itinerary}/>;
+            return <ItineraryCard key={itinerary.itineraryId} itineraryInfo={itinerary} />;
           })}
         </ul>
       </div>

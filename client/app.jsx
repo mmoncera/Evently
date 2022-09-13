@@ -12,8 +12,8 @@ import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
 
 function App() {
-  const [user, setUser] = useState(null);
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [user, setUser] = useState(null);
   const [route, setRoute] = useState(parseRoute(window.location.hash));
 
   useEffect(() => {
@@ -33,8 +33,8 @@ function App() {
   function verifyUser() {
     const token = window.localStorage.getItem('jwt');
     const user = token ? jwtDecode(token) : null;
-    setUser(user);
     setIsAuthorizing(false);
+    setUser(user);
   }
 
   function handleSignIn(result) {

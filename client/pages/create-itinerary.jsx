@@ -89,8 +89,7 @@ function CreateItinerary() {
               placeholder="Itinerary Name"
               required
               autoFocus
-              onChange={handleChange}
-            />
+              onChange={handleChange} />
           </div>
           <div>
             <input
@@ -104,8 +103,7 @@ function CreateItinerary() {
           </div>
           <div className="d-flex justify-content-between mt-4">
             <a className="btn btn-secondary me-1 create-itinerary-button font-rubik" href="#bookmarks">Cancel</a>
-            <button className="btn btn-primary ms-1 create-itinerary-button font-rubik"
-            type="submit">Save</button>
+            <button className="btn btn-primary ms-1 create-itinerary-button font-rubik" type="submit">Save</button>
           </div>
         </form>
       </div>

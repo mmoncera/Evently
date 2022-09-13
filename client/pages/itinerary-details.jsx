@@ -26,8 +26,8 @@ function ItineraryDetails() {
     fetch(`/api/itinerary-events/${itineraryId}`, req)
       .then(res => res.json())
       .then(data => {
-        setItineraryEvents(data);
         setIsLoading(false);
+        setItineraryEvents(data);
       })
       .catch(err => console.error(err));
   }

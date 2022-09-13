@@ -10,7 +10,7 @@ function AppDrawer() {
         <i className="fa-solid fa-bars"></i>
       </button>
       <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div className="offcanvas-header ">
+        <div className="offcanvas-header">
           <u className="offcanvas-title fs-2 font-rubik" id="offcanvasNavbarLabel">Menu</u>
           <button type="button" className="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>

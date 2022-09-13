@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { AppContext } from '../lib';
 
 function EventCard({ eventInfo, icon }) {
+  const [imageHeight, setimageHeight] = useState(0);
+  const heightRef = useRef();
   const { alias, name, rating, reviewCount, type, address, phone } = eventInfo;
   const imageUrl = !eventInfo.imageUrl
     ? './images/no-image.svg.png'
@@ -10,14 +12,18 @@ function EventCard({ eventInfo, icon }) {
   const { route } = useContext(AppContext);
   const iconPosition = route.path === 'bookmarks' || route.path === 'itinerary-details' ? 'align-self-center' : '';
 
+  useEffect(() => {
+    setimageHeight(heightRef.current.clientHeight);
+  }, []);
+
   return (
     <div id={alias} className="card mb-4 shadow">
       <div className="row justify-content-center g-0">
         <div className="col-4">
-          <img src={imageUrl} className="p-3 event-image" alt={`${name} image`} />
+          <img src={imageUrl} className="w-100 p-3 event-image" alt={`${name} image`} style={{ height: `${imageHeight}px` }} />
         </div>
         <div className="col-7">
-          <div className="card-body ps-0">
+          <div className="card-body ps-0" ref={heightRef}>
             <p className="card-text fs-5 fw-semibold">{name}</p>
             <p className="card-text">{rating}{' '}
               <i className="fa-solid fa-star star-icon"></i>{' '}

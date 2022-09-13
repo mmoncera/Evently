@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
+import StarRating from '../components/star-rating';
 import { AppContext } from '../lib';
 
 function EventCard({ eventInfo, icon }) {
@@ -25,9 +26,9 @@ function EventCard({ eventInfo, icon }) {
         <div className="col-7">
           <div className="card-body ps-0" ref={heightRef}>
             <p className="card-text fs-5 fw-semibold">{name}</p>
-            <p className="card-text">{rating}{' '}
-              <i className="fa-solid fa-star star-icon"></i>{' '}
-              <span className="fst-italic">({reviewCount} Reviews)</span>
+            <p className="card-text">
+              <StarRating rating={rating} />
+              <span className="d-block fst-italic">({reviewCount} reviews)</span>
             </p>
             <p className="card-text">{price} • {type}</p>
             <p className="card-text">{address}</p>

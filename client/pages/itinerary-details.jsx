@@ -72,7 +72,8 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
-  function renderItineraryDetailsTrashIcon(eventInfo, trashIconStyle) {
+  function renderItineraryDetailsTrashIcon(eventInfo) {
+    const trashIconStyle = eventInfo.hovered ? 'solid' : 'regular';
     return (
       <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo.itineraryEventId)}>
         <i className={`fa-${trashIconStyle} fa-trash-can fs-4`}></i>
@@ -104,8 +105,7 @@ function ItineraryDetails() {
         <Select itineraryEvents={itineraryEvents} onAddItineraryEvent={handleAddItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
-            const trashIconStyle = itineraryEvent.hovered ? 'solid' : 'regular';
-            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent, trashIconStyle)}/>;
+            return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent)}/>;
           })}
         </ul>
       </div>

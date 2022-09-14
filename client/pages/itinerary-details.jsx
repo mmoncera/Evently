@@ -23,7 +23,7 @@ function ItineraryDetails() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/itinerary-events/${itineraryId}`, req)
+    fetch(`/api/itinerary-events/itinerary-id/${itineraryId}`, req)
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);
@@ -67,7 +67,7 @@ function ItineraryDetails() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/itinerary-events/${itineraryEventId}`, req)
+    fetch(`/api/itinerary-events/itinerary-id/${itineraryEventId}`, req)
       .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== itineraryEventId)))
       .catch(err => console.error(err));
   }

@@ -190,7 +190,7 @@ app.post('/api/itineraries', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
+app.get('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
   const { itineraryId } = req.params;
   const sql = `
     SELECT *
@@ -222,7 +222,7 @@ app.post('/api/itinerary-events', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/itinerary-events/:itineraryEventId', (req, res, next) => {
+app.delete('/api/itinerary-events/itinerary-id/:itineraryEventId', (req, res, next) => {
   const { itineraryEventId } = req.params;
   const sql = `
     DELETE FROM "itineraryEvents"

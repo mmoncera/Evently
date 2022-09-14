@@ -91,7 +91,7 @@ function SearchYelpResults() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/bookmarks/bookmark-id/${bookmarkId}`, req)
+    fetch(`/api/bookmarks/user-id/bookmark-id/${bookmarkId}`, req)
       .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== bookmarkId)))
       .catch(err => console.error(err));
   }

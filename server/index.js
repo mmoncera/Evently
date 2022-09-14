@@ -142,7 +142,7 @@ app.post('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/bookmarks/bookmark-id/:bookmarkId', (req, res, next) => {
+app.delete('/api/bookmarks/user-id/bookmark-id/:bookmarkId', (req, res, next) => {
   const { userId } = req.user;
   const { bookmarkId } = req.params;
   const sql = `

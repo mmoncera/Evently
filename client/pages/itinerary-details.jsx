@@ -75,7 +75,7 @@ function ItineraryDetails() {
   function renderItineraryDetailsTrashIcon(eventInfo, trashIconStyle) {
     return (
       <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo.itineraryEventId)}>
-        <i className={`fa-${trashIconStyle} fa-trash-can itinerary-details-trash-icon`}></i>
+        <i className={`fa-${trashIconStyle} fa-trash-can fs-4`}></i>
       </button>
     );
   }

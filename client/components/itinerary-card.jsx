@@ -26,7 +26,7 @@ function ItineraryCard({ itineraryInfo }) {
         <div className="col-1">
           <div className="card-body ps-0">
             <button className="btn border-0 p-0 lh-1" type="button" onMouseEnter={handleToggleHover} onMouseLeave={handleToggleHover}>
-              <i className={`fa-${trashIconStyle} fa-trash-can itinerary-card-trash-icon`}></i>
+              <i className={`fa-${trashIconStyle} fa-trash-can fs-4`}></i>
             </button>
           </div>
         </div>

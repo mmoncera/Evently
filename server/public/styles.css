@@ -51,15 +51,10 @@ body {
 
 .itinerary-card {
   background-color: #e8e8e8;
-  transition: scale 250ms;
+  transition: 250ms;
 }
 
 .itinerary-card:hover {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
   transform: scale(1.05);
-}
-
-.itinerary-card-trash-icon,
-.itinerary-details-trash-icon {
-  font-size: 1.5rem;
 }

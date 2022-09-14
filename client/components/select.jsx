@@ -15,7 +15,7 @@ function Select({ itineraryEvents, onAddItineraryEvent }) {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarks', req)
+    fetch('/api/bookmarks/user-id', req)
       .then(res => res.json())
       .then(data => setOptions(data))
       .catch(err => console.error(err));

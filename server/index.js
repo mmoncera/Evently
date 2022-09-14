@@ -111,7 +111,7 @@ app.get('/api/search-yelp', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.get('/api/bookmarks', (req, res, next) => {
+app.get('/api/bookmarks/user-id', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
     SELECT *
@@ -142,7 +142,7 @@ app.post('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/bookmarks/:bookmarkId', (req, res, next) => {
+app.delete('/api/bookmarks/bookmark-id/:bookmarkId', (req, res, next) => {
   const { userId } = req.user;
   const { bookmarkId } = req.params;
   const sql = `

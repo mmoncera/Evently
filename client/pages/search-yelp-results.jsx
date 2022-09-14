@@ -42,7 +42,7 @@ function SearchYelpResults() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarks', req)
+    fetch('/api/bookmarks/user-id', req)
       .then(res => res.json())
       .then(data => setBookmarks(data))
       .catch(err => console.error(err));
@@ -91,7 +91,7 @@ function SearchYelpResults() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/bookmarks/${bookmarkId}`, req)
+    fetch(`/api/bookmarks/bookmark-id/${bookmarkId}`, req)
       .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== bookmarkId)))
       .catch(err => console.error(err));
   }

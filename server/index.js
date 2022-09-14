@@ -156,7 +156,7 @@ app.delete('/api/bookmarks/bookmark-id/:bookmarkId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/itineraries', (req, res, next) => {
+app.get('/api/itineraries/user-id', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
     SELECT "itineraryId",

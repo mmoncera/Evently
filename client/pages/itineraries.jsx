@@ -20,7 +20,7 @@ function Itineraries() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch('/api/itineraries', req)
+    fetch('/api/itineraries/user-id', req)
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);

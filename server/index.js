@@ -190,6 +190,20 @@ app.post('/api/itineraries', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.delete('/api/itineraries/user-id/itinerary-id/:itineraryId', (req, res, next) => {
+  const { userId } = req.user;
+  const { itineraryId } = req.params;
+  const sql = `
+    DELETE FROM "itineraries"
+    WHERE "userId" = $1
+    AND "itineraryId" = $2
+  `;
+  const params = [userId, itineraryId];
+  db.query(sql, params)
+    .then(result => res.sendStatus(204))
+    .catch(err => next(err));
+});
+
 app.get('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
   const { itineraryId } = req.params;
   const sql = `
@@ -222,13 +236,25 @@ app.post('/api/itinerary-events', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/itinerary-events/itinerary-id/:itineraryEventId', (req, res, next) => {
+app.delete('/api/itinerary-events/itinerary-event-id/:itineraryEventId', (req, res, next) => {
   const { itineraryEventId } = req.params;
   const sql = `
     DELETE FROM "itineraryEvents"
     WHERE "itineraryEventId" = $1
   `;
   const params = [itineraryEventId];
+  db.query(sql, params)
+    .then(result => res.sendStatus(204))
+    .catch(err => next(err));
+});
+
+app.delete('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
+  const { itineraryId } = req.params;
+  const sql = `
+    DELETE FROM "itineraryEvents"
+    WHERE "itineraryId" = $1
+  `;
+  const params = [itineraryId];
   db.query(sql, params)
     .then(result => res.sendStatus(204))
     .catch(err => next(err));

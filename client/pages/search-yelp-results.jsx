@@ -129,7 +129,7 @@ function SearchYelpResults() {
   return (
     <div className="row justify-content-center pt-5">
       <div className="col-sm-10 col-md-9 col-lg-7">
-        {error && <h2 className="text-center font-rubik">{error}</h2>}
+        {error && <h3 className="text-center font-rubik">{error}</h3>}
         {!error &&
           <>
             <h3 className="mb-3 font-rubik">{`${term} near ${location}`}</h3>

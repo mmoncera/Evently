@@ -39,7 +39,7 @@ function Itineraries() {
 
   const itinerariesMessage =
     itineraries.length === 0
-      ? <h2 className="text-center font-rubik">Sorry, no itineraries found.</h2>
+      ? <h3 className="text-center font-rubik">Sorry, no itineraries found.</h3>
       : <h3 className="mb-3 font-rubik">My Itineraries</h3>;
 
   return (

@@ -74,7 +74,7 @@ function Bookmarks() {
 
   const bookmarkMessage =
     bookmarks.length === 0
-      ? <h2 className="text-center font-rubik">Sorry, no bookmarks found.</h2>
+      ? <h3 className="text-center font-rubik">Sorry, no bookmarks found.</h3>
       : <h3 className="mb-3 font-rubik">My Bookmarks</h3>;
 
   return (

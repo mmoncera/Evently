@@ -98,9 +98,7 @@ app.get('/api/search-yelp', (req, res, next) => {
     throw new ClientError(400, 'event and location are required');
   }
   client.search({ term, location })
-    .then(response => {
-      return res.status(200).json(response.jsonBody.businesses);
-    })
+    .then(response => res.status(200).json(response.jsonBody.businesses))
     .catch(err => {
       if (err.statusCode === 400) {
         return res.json({ error: 'no results' });
@@ -213,9 +211,7 @@ app.get('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
   `;
   const params = [itineraryId];
   db.query(sql, params)
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
+    .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
 

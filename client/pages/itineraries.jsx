@@ -74,5 +74,3 @@ function Itineraries() {
 }
 
 export default Itineraries;
-
-// clean up

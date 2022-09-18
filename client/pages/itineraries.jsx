@@ -29,6 +29,23 @@ function Itineraries() {
       .catch(err => console.error(err));
   }
 
+  function handleDeleteItinerary(itineraryId) {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': window.localStorage.getItem('jwt')
+      }
+    };
+    fetch(`/api/itinerary-events/itinerary-id/${itineraryId}`, req)
+      .then(res => {
+        fetch(`/api/itineraries/user-id/itinerary-id/${itineraryId}`, req)
+          .then(res => setItineraries(itineraries.filter(itinerary => itinerary.itineraryId !== itineraryId)))
+          .catch(err => console.error(err));
+      })
+      .catch(err => console.error(err));
+  }
+
   if (!user) {
     return <Redirect to="sign-in" />;
   }
@@ -48,7 +65,7 @@ function Itineraries() {
         {itinerariesMessage}
         <ul className="ps-0" >
           {itineraries.map(itinerary => {
-            return <ItineraryCard key={itinerary.itineraryId} itineraryInfo={itinerary} />;
+            return <ItineraryCard key={itinerary.itineraryId} itineraryInfo={itinerary} onDeleteItinerary={handleDeleteItinerary} />;
           })}
         </ul>
       </div>
@@ -57,3 +74,5 @@ function Itineraries() {
 }
 
 export default Itineraries;
+
+// clean up

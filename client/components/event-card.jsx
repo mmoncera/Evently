@@ -3,7 +3,7 @@ import StarRating from '../components/star-rating';
 import { AppContext } from '../lib';
 
 function EventCard({ eventInfo, icon }) {
-  const [imageHeight, setimageHeight] = useState(0);
+  const [imageHeight, setImageHeight] = useState(0);
   const heightRef = useRef();
   const { alias, name, rating, reviewCount, type, address, phone } = eventInfo;
   const imageUrl = !eventInfo.imageUrl
@@ -14,7 +14,7 @@ function EventCard({ eventInfo, icon }) {
   const iconPosition = route.path === 'bookmarks' || route.path === 'itinerary-details' ? 'align-self-center' : '';
 
   useEffect(() => {
-    setimageHeight(heightRef.current.clientHeight);
+    setImageHeight(heightRef.current.clientHeight);
   }, []);
 
   return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
 import Home from './pages/home';
 import Auth from './pages/auth';
-import Results from './pages/results';
+import SearchYelpResults from './pages/search-yelp-results';
 import Bookmarks from './pages/bookmarks';
 import CreateItinerary from './pages/create-itinerary';
 import Itineraries from './pages/itineraries';
@@ -12,19 +12,30 @@ import PageContainer from './components/page-container';
 import { parseRoute, AppContext } from './lib';
 
 function App() {
-  const [user, setUser] = useState(null);
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [user, setUser] = useState(null);
   const [route, setRoute] = useState(parseRoute(window.location.hash));
 
   useEffect(() => {
+    addHashChangeListener();
+  }, []);
+
+  useEffect(() => {
+    verifyUser();
+  }, []);
+
+  function addHashChangeListener() {
     window.addEventListener('hashchange', () => {
       setRoute(parseRoute(window.location.hash));
     });
+  }
+
+  function verifyUser() {
     const token = window.localStorage.getItem('jwt');
     const user = token ? jwtDecode(token) : null;
-    setUser(user);
     setIsAuthorizing(false);
-  }, []);
+    setUser(user);
+  }
 
   function handleSignIn(result) {
     const { user, token } = result;
@@ -45,8 +56,8 @@ function App() {
     if (path === 'sign-in' || path === 'register') {
       return <Auth />;
     }
-    if (path === 'results') {
-      return <Results />;
+    if (path === 'search-yelp-results') {
+      return <SearchYelpResults />;
     }
     if (path === 'bookmarks') {
       return <Bookmarks />;

@@ -78,7 +78,7 @@ function AuthForm({ action, onSignIn }) {
   const alternateActionStatement =
     action === 'register'
       ? 'Already have an account?'
-      : "Don't have an account?";
+      : 'Don\'t have an account?';
   const alternateActionLinkText = action === 'register' ? 'Sign In' : 'Register';
   const submitButton = action === 'register' ? 'Register' : 'Sign In';
 

@@ -10,12 +10,12 @@ function AppDrawer() {
         <i className="fa-solid fa-bars"></i>
       </button>
       <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-        <div className="offcanvas-header ">
-          <h1 className="offcanvas-title font-rubik" id="offcanvasNavbarLabel">Menu</h1>
+        <div className="offcanvas-header">
+          <u className="offcanvas-title fs-2 font-rubik" id="offcanvasNavbarLabel">Menu</u>
           <button type="button" className="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div className="offcanvas-body px-0">
-          <div className="navbar-nav justify-content-end flex-grow-1 h4 font-rubik" data-bs-dismiss="offcanvas">
+          <div className="navbar-nav justify-content-end flex-grow-1 fs-4 font-rubik" data-bs-dismiss="offcanvas">
             <a className="nav-link py-3 ps-3 text-dark app-drawer-option" href="#bookmarks">
               <i className="fa-solid fa-bookmark"></i>
               <span className="ps-4">Bookmarks</span>

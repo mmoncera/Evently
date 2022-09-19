@@ -20,7 +20,7 @@ function Bookmarks() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarks', req)
+    fetch('/api/bookmarks/user-id', req)
       .then(res => res.json())
       .then(data => {
         setIsLoading(false);
@@ -29,22 +29,21 @@ function Bookmarks() {
       .catch(err => console.error(err));
   }
 
-  function handleDeleteBookmark(eventInfo) {
+  function handleDeleteBookmark(bookmarkId) {
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ eventInfo })
+      }
     };
-    fetch('/api/bookmarks', req)
-      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.eventId !== eventInfo.eventId)))
+    fetch(`/api/bookmarks/user-id/bookmark-id/${bookmarkId}`, req)
+      .then(res => setBookmarks(bookmarks.filter(bookmark => bookmark.bookmarkId !== bookmarkId)))
       .catch(err => console.error(err));
   }
 
   function renderEllipsisIcon(bookmark) {
-    const { eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
+    const { bookmarkId, eventId, alias, imageUrl, name, rating, reviewCount, price, type, address, phone } = bookmark;
 
     return (
       <div className="dropdown">
@@ -52,11 +51,11 @@ function Bookmarks() {
           <i className="fa-solid fa-ellipsis-vertical fs-4"></i>
         </button>
         <ul className="dropdown-menu">
-          <button className="dropdown-item" type="button" onClick={() => handleDeleteBookmark(bookmark)}>
+          <button className="dropdown-item" type="button" onClick={() => handleDeleteBookmark(bookmarkId)}>
             <i className="fa-solid fa-trash-can ellipses-trash-icon"></i>
             <span className="ps-2 font-rubik">Delete</span>
           </button>
-          <a className="dropdown-item" href={`#create-itinerary?eventId=${eventId}&alias=${alias}&imageUrl=${imageUrl}&name=${name}&rating=${rating}&reviewCount=${reviewCount}&price=${price}&type=${type}&address=${address}&phone=${phone}`}>
+          <a className="dropdown-item" href={`#create-itinerary?eventId=${eventId}&alias=${alias}&imageUrl=${imageUrl}&name=${encodeURIComponent(name)}&rating=${rating}&reviewCount=${reviewCount}&price=${price}&type=${type}&address=${address}&phone=${phone}`}>
             <i className="fa-solid fa-rectangle-list"></i>
             <span className="ps-2 font-rubik">Create Itinerary</span>
           </a>
@@ -75,7 +74,7 @@ function Bookmarks() {
 
   const bookmarkMessage =
     bookmarks.length === 0
-      ? <h2 className="text-center font-rubik">Sorry, no bookmarks found.</h2>
+      ? <h3 className="text-center font-rubik">Sorry, no bookmarks found.</h3>
       : <h3 className="mb-3 font-rubik">My Bookmarks</h3>;
 
   return (
@@ -84,7 +83,7 @@ function Bookmarks() {
         {bookmarkMessage}
         <ul className="ps-0" >
           {bookmarks.map(bookmark => {
-            return <EventCard key={bookmark.bookmarkId} eventInfo={bookmark} icon={renderEllipsisIcon(bookmark)}/>;
+            return <EventCard key={bookmark.bookmarkId} eventInfo={bookmark} icon={renderEllipsisIcon(bookmark)} />;
           })}
         </ul>
       </div>

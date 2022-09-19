@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Select({ itineraryEvents, addItineraryEvent }) {
+function Select({ itineraryEvents, onAddItineraryEvent }) {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -15,22 +15,22 @@ function Select({ itineraryEvents, addItineraryEvent }) {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarks', req)
+    fetch('/api/bookmarks/user-id', req)
       .then(res => res.json())
       .then(data => setOptions(data))
       .catch(err => console.error(err));
   }
 
-  function handleOptionChange(event) {
+  function handleSelection(event) {
     if (event.target.value === 'Add an event') {
       return;
     }
     const itineraryEvent = JSON.parse(event.target.value);
-    addItineraryEvent(itineraryEvent);
+    onAddItineraryEvent(itineraryEvent);
   }
 
   return (
-    <select className="form-select-sm col-5 mb-3 font-rubik" onChange={handleOptionChange}>
+    <select className="form-select-sm col-5 mb-3 font-rubik" onChange={handleSelection}>
       <option value="Add an event">Add an event</option>
       {options.map(option => {
         const itineraryEventIndex = itineraryEvents.findIndex(({ alias }) => alias === option.alias);

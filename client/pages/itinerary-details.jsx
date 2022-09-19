@@ -23,13 +23,23 @@ function ItineraryDetails() {
         'x-access-token': window.localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/itinerary-events/${itineraryId}`, req)
+    fetch(`/api/itinerary-events/itinerary-id/${itineraryId}`, req)
       .then(res => res.json())
       .then(data => {
-        setItineraryEvents(data);
         setIsLoading(false);
+        setItineraryEvents(data);
       })
       .catch(err => console.error(err));
+  }
+
+  function handleToggleHover(eventInfo) {
+    const copyEventInfo = eventInfo.hovered
+      ? { ...eventInfo, hovered: false }
+      : { ...eventInfo, hovered: true };
+    const copyItineraryEvents = [...itineraryEvents];
+    const eventIndex = copyItineraryEvents.findIndex(event => event.itineraryEventId === eventInfo.itineraryEventId);
+    copyItineraryEvents[eventIndex] = copyEventInfo;
+    setItineraryEvents(copyItineraryEvents);
   }
 
   function handleAddItineraryEvent(eventInfo) {
@@ -49,24 +59,24 @@ function ItineraryDetails() {
       .catch(err => console.error(err));
   }
 
-  function handleDeleteItineraryEvent(eventInfo) {
+  function handleDeleteItineraryEvent(itineraryEventId) {
     const req = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'x-access-token': window.localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ eventInfo })
+      }
     };
-    fetch('/api/itinerary-events', req)
-      .then(res => setItineraryEvents(itineraryEvents.filter(intineraryEvent => intineraryEvent.itineraryEventId !== eventInfo.itineraryEventId)))
+    fetch(`/api/itinerary-events/itinerary-event-id/${itineraryEventId}`, req)
+      .then(res => setItineraryEvents(itineraryEvents.filter(itineraryEvent => itineraryEvent.itineraryEventId !== itineraryEventId)))
       .catch(err => console.error(err));
   }
 
   function renderItineraryDetailsTrashIcon(eventInfo) {
+    const trashIconStyle = eventInfo.hovered ? 'solid' : 'regular';
     return (
-      <button className="btn border-0 ms-1 p-0" onClick={() => handleDeleteItineraryEvent(eventInfo)}>
-        <i className="fa-regular fa-trash-can itinerary-details-trash-icon"></i>
+      <button className="btn border-0 ms-1 p-0" onMouseEnter={() => handleToggleHover(eventInfo)} onMouseLeave={() => handleToggleHover(eventInfo)} onClick={() => handleDeleteItineraryEvent(eventInfo.itineraryEventId)}>
+        <i className={`fa-${trashIconStyle} fa-trash-can fs-4`}></i>
       </button>
     );
   }
@@ -84,12 +94,15 @@ function ItineraryDetails() {
   const formattedItineraryDate = params.get('formattedItineraryDate');
 
   return (
-    <div className="row justify-content-center pt-5">
+    <div className="row justify-content-center pt-4">
       <div className="col-sm-10 col-md-9 col-lg-7">
+        <a href="#itineraries">
+          <i className="fa-regular fa-circle-left mb-3 fs-3"></i>
+        </a>
         <h3 className="font-rubik">{itineraryName}</h3>
         <p className="font-rubik">{formattedItineraryDate}</p>
         <hr />
-        <Select itineraryEvents={itineraryEvents} addItineraryEvent={handleAddItineraryEvent}/>
+        <Select itineraryEvents={itineraryEvents} onAddItineraryEvent={handleAddItineraryEvent}/>
         <ul className="ps-0" >
           {itineraryEvents.map(itineraryEvent => {
             return <EventCard key={itineraryEvent.itineraryEventId} eventInfo={itineraryEvent} icon={renderItineraryDetailsTrashIcon(itineraryEvent)}/>;

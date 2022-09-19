@@ -40,7 +40,9 @@ app.post('/api/auth/register', (req, res, next) => {
       const sql = `
         INSERT INTO "users" ("username", "hashedPassword")
         VALUES ($1, $2)
-        RETURNING "userId", "username", "createdAt"
+        RETURNING "userId",
+                  "username",
+                  "createdAt"
       `;
       const params = [username, hashedPassword];
       return db.query(sql, params);
@@ -96,9 +98,7 @@ app.get('/api/search-yelp', (req, res, next) => {
     throw new ClientError(400, 'event and location are required');
   }
   client.search({ term, location })
-    .then(response => {
-      return res.status(200).json(response.jsonBody.businesses);
-    })
+    .then(response => res.status(200).json(response.jsonBody.businesses))
     .catch(err => {
       if (err.statusCode === 400) {
         return res.json({ error: 'no results' });
@@ -109,7 +109,7 @@ app.get('/api/search-yelp', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.get('/api/bookmarks', (req, res, next) => {
+app.get('/api/bookmarks/user-id', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
     SELECT *
@@ -140,23 +140,27 @@ app.post('/api/bookmarks', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/bookmarks', (req, res, next) => {
+app.delete('/api/bookmarks/user-id/bookmark-id/:bookmarkId', (req, res, next) => {
   const { userId } = req.user;
-  const { eventId } = req.body.eventInfo;
+  const { bookmarkId } = req.params;
   const sql = `
     DELETE FROM "bookmarks"
-    WHERE "userId" = $1 AND "eventId" = $2
+    WHERE "userId" = $1
+    AND "bookmarkId" = $2
   `;
-  const params = [userId, eventId];
+  const params = [userId, bookmarkId];
   db.query(sql, params)
     .then(result => res.sendStatus(204))
     .catch(err => next(err));
 });
 
-app.get('/api/itineraries', (req, res, next) => {
+app.get('/api/itineraries/user-id', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    SELECT "itineraryId", "itineraryName", to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY') AS "formattedItineraryDate"
+    SELECT "itineraryId",
+           "itineraryName",
+           to_char("itineraryDate", 'FMDay, FMMonth FMDD, YYYY')
+           AS "formattedItineraryDate"
     FROM "itineraries"
     WHERE "userId" = $1
     ORDER BY "itineraryDate"
@@ -184,7 +188,21 @@ app.post('/api/itineraries', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
+app.delete('/api/itineraries/user-id/itinerary-id/:itineraryId', (req, res, next) => {
+  const { userId } = req.user;
+  const { itineraryId } = req.params;
+  const sql = `
+    DELETE FROM "itineraries"
+    WHERE "userId" = $1
+    AND "itineraryId" = $2
+  `;
+  const params = [userId, itineraryId];
+  db.query(sql, params)
+    .then(result => res.sendStatus(204))
+    .catch(err => next(err));
+});
+
+app.get('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
   const { itineraryId } = req.params;
   const sql = `
     SELECT *
@@ -193,9 +211,7 @@ app.get('/api/itinerary-events/:itineraryId', (req, res, next) => {
   `;
   const params = [itineraryId];
   db.query(sql, params)
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
+    .then(result => res.status(200).json(result.rows))
     .catch(err => next(err));
 });
 
@@ -216,13 +232,25 @@ app.post('/api/itinerary-events', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.delete('/api/itinerary-events', (req, res, next) => {
-  const { itineraryEventId } = req.body.eventInfo;
+app.delete('/api/itinerary-events/itinerary-event-id/:itineraryEventId', (req, res, next) => {
+  const { itineraryEventId } = req.params;
   const sql = `
     DELETE FROM "itineraryEvents"
     WHERE "itineraryEventId" = $1
   `;
   const params = [itineraryEventId];
+  db.query(sql, params)
+    .then(result => res.sendStatus(204))
+    .catch(err => next(err));
+});
+
+app.delete('/api/itinerary-events/itinerary-id/:itineraryId', (req, res, next) => {
+  const { itineraryId } = req.params;
+  const sql = `
+    DELETE FROM "itineraryEvents"
+    WHERE "itineraryId" = $1
+  `;
+  const params = [itineraryId];
   db.query(sql, params)
     .then(result => res.sendStatus(204))
     .catch(err => next(err));

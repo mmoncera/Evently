@@ -96,8 +96,7 @@ function AuthForm({ action, onSignIn }) {
             placeholder="Username"
             required
             autoFocus
-            onChange={handleChange}
-          />
+            onChange={handleChange} />
         </div>
         <div className="mb-3">
           <input

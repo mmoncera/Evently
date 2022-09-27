@@ -9,7 +9,7 @@ function Header() {
     <header className="sticky-top">
       <nav className="navbar navbar-dark lh-1 bg-primary">
         <div className="container">
-          <a className="navbar-brand py-0 me-0 fs-1 app-name" href="#">Evently</a>
+          <a className="navbar-brand py-0 me-0 app-name" href="#">Evently</a>
           {user && <AppDrawer />}
         </div>
       </nav>

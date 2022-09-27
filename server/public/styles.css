@@ -9,6 +9,7 @@ body {
 }
 
 .app-name {
+  font-size: calc(2rem + 0.5vw);
   font-family: "Just Another Hand", cursive;
   letter-spacing: 0.07rem;
 }

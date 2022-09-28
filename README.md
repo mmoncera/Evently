@@ -24,7 +24,7 @@ Check out the live site here - [Evently](https://evently.michaelmoncera.com/)
 ## Current Features
 * User can register an account
 * User can sign in to their account
-* User can sign in to their account
+* User can sign out of their account
 * User can search for an event by location
 * User can view search results
 * User can bookmark an event

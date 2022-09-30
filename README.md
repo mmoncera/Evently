@@ -2,7 +2,7 @@
 
 #### A web application for event planners who want to create an itinerary for special occasions.
 
-The most memorable times I've had when visiting a new city, getting together with friends, or attending any celebration was when the events were carefully planned. Now finding cool new venues or remembering past favorites can be time consuming and a challenge to organize. With Evently, my friends, family, and I can keep a list of interesting places and effortlessly create a fun party plan!
+The most memorable times I've had when visiting a new city, getting together with friends, or attending any celebration was when the events were carefully planned. Now finding cool new places or remembering past favorites can be time consuming and a challenge to organize. With Evently, my friends, family, and I can keep a list of interesting venues and effortlessly create a fun party plan!
 
 ## Live Demo
 Check out the live site here - [Evently](https://evently.michaelmoncera.com/)

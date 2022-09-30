@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import LoadingIndicator from '../components/loading-indicator';
 import EventCard from '../components/event-card';
 import { AppContext } from '../lib';
 
@@ -69,7 +70,7 @@ function Bookmarks() {
   }
 
   if (isLoading) {
-    return null;
+    return <LoadingIndicator />;
   }
 
   const bookmarkMessage =

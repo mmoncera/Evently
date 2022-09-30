@@ -22,16 +22,17 @@ body {
   background-color: #e9ecef;
 }
 
-.page-height {
-  min-height: calc(100vh - 3.6rem);
-}
-
 .auth-form-button {
   width: 7rem;
 }
 
 .home-container-padding {
   padding-top: 9rem;
+}
+
+.loading-indicator {
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .event-image {

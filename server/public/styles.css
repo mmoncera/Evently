@@ -22,10 +22,6 @@ body {
   background-color: #e9ecef;
 }
 
-.page-height {
-  min-height: calc(100vh - 3.6rem);
-}
-
 .auth-form-button {
   width: 7rem;
 }

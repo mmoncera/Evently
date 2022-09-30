@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import LoadingIndicator from '../components/loading-indicator';
 import EventCard from '../components/event-card';
 import { AppContext, parseRoute } from '../lib';
 
@@ -119,7 +120,7 @@ function SearchYelpResults() {
   }
 
   if (isSearching) {
-    return null;
+    return <LoadingIndicator />;
   }
 
   const { params } = parseRoute(window.location.hash);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import LoadingIndicator from '../components/loading-indicator';
 import ItineraryCard from '../components/itinerary-card';
 import { AppContext } from '../lib';
 
@@ -51,7 +52,7 @@ function Itineraries() {
   }
 
   if (isLoading) {
-    return null;
+    return <LoadingIndicator />;
   }
 
   const itinerariesMessage =

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Redirect from '../components/redirect';
+import LoadingIndicator from '../components/loading-indicator';
 import Select from '../components/select';
 import EventCard from '../components/event-card';
 import { AppContext, parseRoute } from '../lib';
@@ -86,7 +87,7 @@ function ItineraryDetails() {
   }
 
   if (isLoading) {
-    return null;
+    return <LoadingIndicator />;
   }
 
   const { params } = parseRoute(window.location.hash);
